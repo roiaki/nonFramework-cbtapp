@@ -1,9 +1,7 @@
 <?php
 session_start();
-require '../common/database.php';
-var_dump($_SESSION);
-//var_dump(date("H"));
-//phpinfo();
+require 'database.php';
+
 $user_id = $_SESSION['user']['id'];
 $user_name = $_SESSION['user']['name'];
 
@@ -19,22 +17,9 @@ if (5 <= $hour && $hour <= 12) {
 
 var_dump($user_id, $user_name,);
 ?>
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-	<meta charset="utf-8">
-	<title>CBT APP</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../../public/css/main.css">
-
-</head>
-
-<body>
-	<header class="mb-4">
+<header class="mb-4">
 		<nav class="navbar navbar-expand-sm navbar-light bg-light">
-			<a class="navbar-brand fw-bold ml-5" href="/events">CBT APP</a>
+			<a class="navbar-brand fw-bold ml-5" href="../events">CBT APP</a>
 
 			<div class="collapse navbar-collapse" id="nav-bar">
 				<ul class="navbar-nav mr-auto"></ul>
@@ -45,8 +30,8 @@ var_dump($user_id, $user_name,);
 							ID <?php echo $user_id; ?> 番 <?php echo $user_name; ?> さん、<?php echo $msg; ?>　
 						</div>
 						<li class="nav-item"><a class="nav-link" href="../user/info.php">説明</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">出来事一覧</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">3コラム一覧</a></li>
+						<li class="nav-item"><a class="nav-link" href="../events">出来事一覧</a></li>
+						<li class="nav-item"><a class="nav-link" href="../threecolumns">3コラム一覧</a></li>
 
 						<div class="dropdown mr-5">
 							<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -68,16 +53,4 @@ var_dump($user_id, $user_name,);
 				</ul>
 			</div>
 		</nav>
-	</header>
-	<div class="container">
-
-	</div>
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-	<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
-	<script type="text/javascript" src="main.js"></script>
-</body>
-
-</html>
+</header>
