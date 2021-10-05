@@ -2,8 +2,15 @@
 session_start();
 require 'database.php';
 
-$user_id = $_SESSION['user']['id'];
-$user_name = $_SESSION['user']['name'];
+var_dump($_SESSION);
+
+if ( isset($_SESSION['user']['id'])  ) {
+	$user_id = $_SESSION['user']['id'];
+}
+
+if ( isset($_SESSION['user']['name'])  ) {
+	$user_name = $_SESSION['user']['name'];
+}
 
 $hour = date("H");
 
@@ -15,7 +22,7 @@ if (5 <= $hour && $hour <= 12) {
 	$msg = "こんにちは";
 }
 
-var_dump($user_id, $user_name,);
+//var_dump($user_id, $user_name,);
 ?>
 <header class="mb-4">
 		<nav class="navbar navbar-expand-sm navbar-light bg-light">
@@ -39,7 +46,7 @@ var_dump($user_id, $user_name,);
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-								<li><a class="nav-link" href="#">ログアウト</a></li>
+								<li><a class="nav-link" href="../events/action/logout.php">ログアウト</a></li>
 								<li><a class="nav-link" href="#">退会</a></li>
 
 							</ul>
@@ -47,8 +54,8 @@ var_dump($user_id, $user_name,);
 
 					<?php } else { ?>
 
-						<li class="nav-item"><a class="dropdown-item" href="#">ログイン</a></li>
-						<li class="nav-item"><a class="dropdown-item" href="#">会員登録</a></li>
+						<li class="nav-item"><a class="dropdown-item" href="../login/">ログイン</a></li>
+						<li class="nav-item"><a class="dropdown-item" href="../register/">会員登録</a></li>
 					<?php } ?>
 				</ul>
 			</div>

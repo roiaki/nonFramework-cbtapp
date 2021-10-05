@@ -1,6 +1,6 @@
 <?php
-session_start();
-var_dump($_POST);
+//session_start();
+//var_dump($_POST);
 if (isset($_POST['user_name']) ) {
  
 }
@@ -17,7 +17,7 @@ if (isset($_POST['user_name']) ) {
 </head>
 
 <body>
-
+<?php include('../common/global_menu.php'); ?>
 	<form action="action/register.php" method="post">
 		<div class="d-flex flex-column align-items-center justify-content-center shadow-lg p-3 mb-5 bg-white rounded">
 			<h3>会員登録</h3>

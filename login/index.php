@@ -1,6 +1,4 @@
 <?php
-    session_start();
-
 
 ?>
 <!DOCTYPE html>
@@ -15,7 +13,7 @@
 </head>
 
 <body>
-
+<?php include('../common/global_menu.php'); ?>
 	<form action="action/login.php" method="post">
 		<div class="d-flex flex-column align-items-center justify-content-center shadow-lg p-3 mb-5 bg-white rounded">
 			<h3>ログイン</h3>
