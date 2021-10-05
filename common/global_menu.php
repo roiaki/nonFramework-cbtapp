@@ -47,7 +47,7 @@ if (5 <= $hour && $hour <= 12) {
 							</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 								<li><a class="nav-link" href="../events/action/logout.php">ログアウト</a></li>
-								<li><a class="nav-link" href="#">退会</a></li>
+								<li><a class="nav-link" href="../withdraw/delete_confirm.php">退会</a></li>
 
 							</ul>
 						</div>

@@ -11,7 +11,7 @@
     // ログイン処理
     $database_handler = getDatabaseConnection();
     
-    $sql = $database_handler->prepare('SELECT id, name, password FROM users WHERE email = :user_email');
+    $sql = $database_handler->prepare('SELECT id, name, email, password FROM users WHERE email = :user_email');
     $sql->bindParam(':user_email', $user_email);
     $sql->execute();
 
@@ -24,12 +24,17 @@
 
     $name = $user['name'];
     $id = $user['id'];
+    $email = $user['email'];
+
+    //var_dump($email);
+    //exit;
 
     // パスワードが正しいならば
     if ( password_verify($user_password, $user['password']) ) {
         // ユーザー情報保持
         $_SESSION['user'] = [
             'name' => $name,
+            'email' => $email,
             'id' => $id
         ];
 
