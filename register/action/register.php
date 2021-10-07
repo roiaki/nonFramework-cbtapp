@@ -11,6 +11,7 @@
     //var_dump($_SESSION['errors']);
     //exit;
 
+    // バリデーション
     if (emptyCheck($user_name) == "empty") {
         $_SESSION['name_error'][] = "入力必須です";
     }
@@ -26,13 +27,8 @@
     if (emailCheck($user_email) == "NG") {
         $_SESSION['email_error'][] = "メール形式でお願いします";
     }
-    var_dump($_SESSION['email']);
-    /*
-    foreach ((array)$_SESSION['email'] as $err) {
-        var_dump($err);
-    };
-    exit;
-*/
+    //var_dump($_SESSION['email']);
+ 
     if (minSize($user_password) == "NG") {
         $_SESSION['password']['min'] = "4文字以上でお願いします。";
     }

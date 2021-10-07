@@ -7,7 +7,35 @@
     $user_password = $_POST['user_password'];
 
     // バリデーション
+    if (emptyCheck($user_name) == "empty") {
+        $_SESSION['name_error'][] = "入力必須です";
+    }
+ 
+    if (emptyCheck($user_email) == "empty") {
+        $_SESSION['email_error'][]= "入力必須です";       
+    }
+    
+    if (emptyCheck($user_password) == "empty") {
+        $_SESSION['password_error'][] = "入力必須です";
+    }
 
+    if (emailCheck($user_email) == "NG") {
+        $_SESSION['email_error'][] = "メール形式でお願いします";
+    }
+    //var_dump($_SESSION['email']);
+ 
+    if (minSize($user_password) == "NG") {
+        $_SESSION['password']['min'] = "4文字以上でお願いします。";
+    }
+
+    if (maxSize($user_password) == "NG") {
+        $_SESSION['password']['min'] = "255文字未満でお願いします。";
+    }
+
+    if (emailDuplicationCheck($user_email) == "duplicated_NG") {
+        $_SESSION['email']['duplicate'] = "既に登録されているメールアドレスです。";
+    }
+    
     // ログイン処理
     $database_handler = getDatabaseConnection();
     

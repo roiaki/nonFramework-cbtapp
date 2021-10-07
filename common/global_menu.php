@@ -1,26 +1,24 @@
 <?php
-session_start();
-require 'database.php';
 
-var_dump($_SESSION);
+	//var_dump('$_session' , $_SESSION['user']);
 
-if ( isset($_SESSION['user']['id'])  ) {
-	$user_id = $_SESSION['user']['id'];
-}
+	if ( isset($_SESSION['user']['id']) ) {
+		$user_id = $_SESSION['user']['id'];
+	}
 
-if ( isset($_SESSION['user']['name'])  ) {
-	$user_name = $_SESSION['user']['name'];
-}
+	if ( isset($_SESSION['user']['name']) ) {
+		$user_name = $_SESSION['user']['name'];
+	}
 
-$hour = date("H");
+	$hour = date("H");
 
-if (5 <= $hour && $hour <= 12) {
-	$msg = "おはようございます";
-} else if (17 < $hour) {
-	$msg = "こんばんは";
-} else {
-	$msg = "こんにちは";
-}
+	if (5 <= $hour && $hour <= 12) {
+		$msg = "おはようございます";
+	} else if (17 < $hour) {
+		$msg = "こんばんは";
+	} else {
+		$msg = "こんにちは";
+	}
 
 //var_dump($user_id, $user_name,);
 ?>
