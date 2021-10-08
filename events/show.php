@@ -66,7 +66,7 @@ var_dump($events);
             </tbody>
         </table>
         <a href="edit.php?event_id=<?php echo $event['id']; ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">編集</a>
-        <a href="delete.php" class="btn btn-danger btn-lg" role="button" aria-pressed="true">削除</a>
+        <a href="delete.php?event_id=<?php echo $event['id']; ?>" class="btn btn-danger btn-lg" role="button" aria-pressed="true">削除</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
