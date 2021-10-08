@@ -92,8 +92,10 @@ if ( $res ) {
 //var_dump($res);
 //var_dump($succes_message);
 //exit;
+// プリペアードステートメントを削除
 $sql = null;
 
+// データベースの接続を閉じる
 $database_handler = null;
 
 header('Location: ../../events');

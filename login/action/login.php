@@ -57,7 +57,8 @@ if ( password_verify($user_password, $user['password']) ) {
         'email' => $email,
         'id' => $id
     ];
-
+    $_SESSION['flash_message'] = "ログインしました";
+    
     header('Location: ../../events/');
     exit;
 
