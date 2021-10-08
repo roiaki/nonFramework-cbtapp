@@ -5,6 +5,7 @@ require '../../common/database.php';
 require '../../common/auth.php';
 require '../../common/validation.php';
 
+// ログインしているか
 if (!isLogin()) {
     header('Location: ../../login/');
 }
@@ -13,6 +14,7 @@ $htmltitle = "";
 $clean['title'] = htmlspecialchars( $_POST['title'], ENT_QUOTES, 'UTF-8');
 $clean['content'] = htmlspecialchars( $_POST['content'], ENT_QUOTES, 'UTF-8');
 
+// バリデーション　課題　共通化
 if (emptyCheck($clean['title']) == "NG") {
     $_SESSION['error_title']['empty'] = "タイトル入力必須です";
 }
@@ -21,9 +23,8 @@ if (emptyCheck($clean['content']) == "NG") {
     $_SESSION['error_content']['empty'] = "内容入力必須です";
 }
 
-    // バリデーションエラーがあったら同じ画面へ
-    if ($_SESSION['error_title'] || $_SESSION['error_content']) {
-    //$post = 
+// バリデーションエラーがあったら同じ画面へ
+if ($_SESSION['error_title'] || $_SESSION['error_content']) { 
     header('Location: ../../events/create.php');
     exit;
 }

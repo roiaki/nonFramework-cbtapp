@@ -1,6 +1,6 @@
 <?php
 	require '../common/database.php';
-	require '../common/auth.php'; // ここでsession_start
+	require '../common/auth.php'; 
 	session_start();
 	$title = 'CBT APP';
 	$description = '';
@@ -10,11 +10,17 @@
 	$user_id = getLoginUserId();
 	$user_name = getLoginUserName();
 
-	var_dump($user_id, $user_name);
+    var_dump('GET', $_GET);
+    $event_id = $_GET['event_id'];
+
+	var_dump("event_id = " . $event_id, "get['id'] = " . $_GET['id'], "user_id = " . $user_id, 'user_name = ' . $user_name);
 
 	$database_handler = getDatabaseConnection();
-	$sql = $database_handler->prepare("SELECT * FROM events WHERE user_id = :user_id ORDER BY updated_at DESC");
-	$sql->bindParam(':user_id', $user_id);
+	$sql = $database_handler->prepare("SELECT * FROM events WHERE user_id = :user_id AND id = :event_id ORDER BY updated_at DESC");
+	
+    $sql->bindParam(':user_id', $user_id);
+    $sql->bindParam(':event_id', $event_id);
+
 	$sql->execute();
 
 	$events = [];
@@ -32,7 +38,7 @@ var_dump($events);
 	<?php include('../common/global_menu.php'); ?>
 
 	<div class="container">
-		<h3>出来事一覧</h3>
+		<h3>出来事 詳細ページ</h3>
 
 		<table class="table table-striped table-bordered">
 			<thead>
@@ -47,17 +53,15 @@ var_dump($events);
 			<tbody>
 				<?php foreach ( $events as $event) {?>
 				<tr>
-					<td><a href=""><?php echo $event['id']; ?></a></td>
+					<td><a href="$event['id']"><?php echo $event['id']; ?></a></td>
 					<td><?php echo $event['title']; ?></td>
 					<td><?php echo $event['content']; ?></td>
-					<td><?php echo $event['updated_at']; ?>
-					
-				<p><a href="show.php?event_id=<?php echo $event['id']; ?> ">詳細</a></p></td>
+					<td><?php echo $event['updated_at']; ?></td>
 				</tr>
 				<?php  }?>
 			</tbody>
 		</table>
-		<a href="create.php" class="btn btn-primary btn-lg"role="button" aria-pressed="true">新規作成</a>
+		<a href="create.php" class="btn btn-primary btn-lg"role="button" aria-pressed="true">hes</a>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

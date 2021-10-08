@@ -7,7 +7,7 @@ $user_name = $_POST['user_name'];
 $user_email = $_POST['user_email'];
 $user_password = $_POST['user_password'];
 
-// バリデーション
+// バリデーション　課題　共通化
 if (emptyCheck($user_name) == "NG") {
     $_SESSION['name']['empty'] = "入力必須です";
 }

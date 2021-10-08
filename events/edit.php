@@ -1,6 +1,6 @@
 <?php
 	require '../common/database.php';
-	require '../common/auth.php'; // ここでsession_start
+	require '../common/auth.php'; 
 	session_start();
 	$title = 'CBT APP';
 	$description = '';
@@ -23,7 +23,7 @@
 		array_push($events, $result);
 		//var_dump($result);
 	}
-var_dump($events);
+//var_dump($events);
 
 
 ?>
@@ -47,12 +47,10 @@ var_dump($events);
 			<tbody>
 				<?php foreach ( $events as $event) {?>
 				<tr>
-					<td><a href=""><?php echo $event['id']; ?></a></td>
+					<td><a href="$event['id']"><?php echo $event['id']; ?></a></td>
 					<td><?php echo $event['title']; ?></td>
 					<td><?php echo $event['content']; ?></td>
-					<td><?php echo $event['updated_at']; ?>
-					
-				<p><a href="show.php?event_id=<?php echo $event['id']; ?> ">詳細</a></p></td>
+					<td><?php echo $event['updated_at']; ?></td>
 				</tr>
 				<?php  }?>
 			</tbody>
