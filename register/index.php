@@ -1,5 +1,14 @@
 <?php
 session_start();
+
+require '../common/auth.php'; 
+
+// ログインしていたらevents/index.phpへリダイレクト
+if ( isLogin() ) {
+	header('Location: ../events');
+	exit;
+}
+
 $title = '会員登録';
 $description ='';
 

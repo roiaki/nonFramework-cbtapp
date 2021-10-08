@@ -3,11 +3,14 @@ session_start();
 
 require '../common/database.php';
 require '../common/auth.php';
+
 //var_dump($_SESSION);
 //exit();
 
-if (!isLogin()) {
+// ログインしてないならログイン画面へ
+if ( !isLogin() ) {
 	header('Location: ../../login/');
+    exit;
 }
 
 $user_id = getLoginUserId();

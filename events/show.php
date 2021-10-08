@@ -1,8 +1,16 @@
 <?php
+session_start();
+
 require '../common/database.php';
 require '../common/auth.php';
-session_start();
-$title = 'CBT APP';
+
+// ログインしてないならログイン画面へ
+if ( !isLogin() ) {
+	header('Location: ../login/');
+    exit;
+}
+
+$htmltitle = '詳細ページ';
 $description = '';
 
 include('../common/head.php');
@@ -34,7 +42,7 @@ while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
     array_push($events, $result);
     //var_dump($result);
 }
-var_dump($events);
+//var_dump($events);
 
 ?>
 
@@ -65,6 +73,7 @@ var_dump($events);
                 <?php  } ?>
             </tbody>
         </table>
+        <a href="edit.php?event_id=<?php echo $event['id']; ?>" class="btn btn-success btn-lg" role="button" aria-pressed="true">この出来事を元に3コラムを作成</a>
         <a href="edit.php?event_id=<?php echo $event['id']; ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">編集</a>
         <a href="delete.php?event_id=<?php echo $event['id']; ?>" class="btn btn-danger btn-lg" role="button" aria-pressed="true">削除</a>
     </div>

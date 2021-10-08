@@ -1,6 +1,15 @@
 <?php
 session_start();
-$title = 'ログイン';
+
+require '../common/auth.php'; 
+
+// ログインしていたらevent/index.php へリダイレクト
+if ( isLogin() ) {
+	header('Location: ../events');
+	exit;
+}
+
+$htmltitle = 'ログイン';
 $description ='';
 
 include('../common/head.php');

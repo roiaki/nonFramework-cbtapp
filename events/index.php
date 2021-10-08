@@ -1,7 +1,15 @@
 <?php
+session_start();
+
 require '../common/database.php';
 require '../common/auth.php'; // ここでsession_start
-session_start();
+
+// ログインしていなかったらログイン画面へリダイレクト
+if ( !isLogin() ) {
+	header('Location: ../login/');
+	exit;
+}
+
 $htmltitle = 'CBT APP';
 $description = '';
 
@@ -10,7 +18,7 @@ include('../common/head.php');
 $user_id = getLoginUserId();
 $user_name = getLoginUserName();
 
-var_dump($user_id, $user_name);
+//var_dump($user_id, $user_name);
 
 $database_handler = getDatabaseConnection();
 $sql = $database_handler->prepare("SELECT * FROM events WHERE user_id = :user_id ORDER BY updated_at DESC");
@@ -23,7 +31,7 @@ while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
 	array_push($events, $result);
 	//var_dump($result);
 }
-var_dump($events);
+//var_dump($events);
 
 
 ?>
@@ -52,7 +60,7 @@ var_dump($events);
 			<tbody>
 				<?php foreach ($events as $event) { ?>
 					<tr>
-						<td><a href=""><?php echo $event['id']; ?></a></td>
+						<td><?php echo $event['id']; ?></td>
 						<td><?php echo $event['title']; ?></td>
 						<td><?php echo $event['content']; ?></td>
 						<td><?php echo $event['updated_at']; ?>

@@ -5,8 +5,8 @@ require '../../common/database.php';
 require '../../common/auth.php';
 require '../../common/validation.php';
 
-// ログインしているか
-if (!isLogin()) {
+// ログインしていないならログイン画面へ
+if ( !isLogin() ) {
     header('Location: ../../login/');
 }
 

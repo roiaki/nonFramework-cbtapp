@@ -1,6 +1,6 @@
 <?php
-//session_start();
-$title = '説明';
+session_start();
+$htmltitle = '説明';
 $description = '';
 
 include('../common/head.php');
@@ -15,7 +15,7 @@ include('../common/head.php');
       <h3>このアプリの使い方</h3>
       <br>
       <p>出来事を元に考え方の癖について考えます。<br>
-        落ち込んでしまった、などのネガティブな考え方を変えたいイベントを思い出し、<br>
+        落ち込んでしまった、などのネガティブで考え方を変えたいイベントを思い出し、<br>
         ３コラム新規作成をクリックして<br>
       </p>
       <p>１　感情<br>  ２　考えたこと<br>  ３　考え方の癖<br>

@@ -6,7 +6,8 @@ require '../../common/auth.php';
 //var_dump($_SESSION);
 //exit();
 
-if (!isLogin()) {
+// ログインしていないならログイン画面へ
+if ( !isLogin() ) {
 	header('Location: ../../login/');
 }
 
