@@ -1,9 +1,9 @@
 <?php
-
+/*
 if ( !isset($_SESSION) ) {
     session_start();
 }
-
+*/
 // ログインしているかチェック
 function isLogin() {
     if ( isset($_SESSION['user']) ) {

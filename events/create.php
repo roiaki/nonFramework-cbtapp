@@ -25,6 +25,7 @@ include('../common/head.php');
 			<h3>出来事　新規作成</h3>
 			<?php if (isset($_SESSION['error_message'])) {
 				echo '<div class="text-danger">';
+				var_dump($_SESSION);
 				foreach ($_SESSION['error_message'] as $error) {
 					echo "<div>* $error </div>";
 				}

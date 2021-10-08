@@ -1,30 +1,53 @@
 <?php
     require '../../common/database.php';
     require '../../common/auth.php';
+    require '../../common/validation.php';
 
     if (!isLogin()) {
         header('Location: ../../login/');
     }
 
     $htmltitle = "";
+    $clean['title'] = htmlspecialchars( $_POST['title'], ENT_QUOTES, 'UTF-8');
+    $clean['content'] = htmlspecialchars( $_POST['content'], ENT_QUOTES, 'UTF-8');
 
+    if (emptyCheck($clean['title']) == "empty") {
+        $_SESSION['title_error'][] = "タイトル入力必須です";
+    }
+
+    if (emptyCheck($clean['title']) == "empty") {
+        $_SESSION['title_error'][] = "タイトル入力必須です";
+    }
+
+     // バリデーションエラーがあったら同じ画面へ
+     if ($_SESSION['email_error']) {
+        //$post = 
+        header('Location: ../../register');
+        exit;
+    }
+    /*
     if ( empty($_POST['title']) ) {
-        $_SESSION['error_message']['title'] = "タイトルを入力してください";
+        $_SESSION['error_message'] = "タイトルを入力してください";
         var_dump($_POST);
         var_dump($_SESSION);
         //exit;
         header('Location: ../../events/create.php');
+        exit;
     } else {
         $clean['title'] = htmlspecialchars( $_POST['title'], ENT_QUOTES, 'UTF-8' );
         header('Location: ../../events/create.php');
     }
-
+*/
+/*
     if ( empty($_POST['content']) ) {
-        $_SESSION['error_message']['content'] = "内容を入力してください";
+        $_SESSION['error_message'] = "内容を入力してください";
+        header('Location: ../../events/create.php');
+        exit;
+
     } else {
         $clean['content'] = htmlspecialchars( $_POST['content'], ENT_QUOTES, 'UTF-8');
     }
-    
+  */  
     $content = $_POST['content'];
     $created_at = date("Y-m-d H:i:s");
     $updated_at = date("Y-m-d H:i:s");

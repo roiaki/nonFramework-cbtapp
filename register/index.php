@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 $title = '会員登録';
 $description ='';
 
@@ -8,7 +8,6 @@ include('../common/head.php');
 ?>
 
 <body>
-	
 <?php include('../common/global_menu.php'); ?>
 
 	<form action="action/register.php" method="post">
@@ -19,13 +18,13 @@ include('../common/head.php');
 				<label for="name">お名前</label>
 				<input type="text" name="user_name" id="name" class="form-control" placeholder="お名前" value="<?php if(isset($_POST['user_name'])){echo $_POST['user_name'];} ?>">
 
-				<?php if ( isset($_SESSION['name_error']) ) {
+				<?php if ( isset($_SESSION['name']) ) {
 					echo '<div class="text-danger">';
-					foreach ($_SESSION['name_error'] as $error) {
+					foreach ($_SESSION['name'] as $error) {
 						echo "<div>* $error </div>";
 					}
 					echo '</div>';
-					unset($_SESSION['name_error']);
+					unset($_SESSION['name']);
 				}
 				?>
 			</div>
@@ -63,11 +62,5 @@ include('../common/head.php');
 			</button>
 		</div>
 	</form>
-
-
-
-
 </body>
-
-
 </html>

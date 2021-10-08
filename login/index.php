@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 $title = 'ログイン';
 $description ='';
 
@@ -12,7 +12,15 @@ include('../common/head.php');
 	<form action="action/login.php" method="post">
 		<div class="d-flex flex-column align-items-center justify-content-center shadow-lg p-3 mb-5 bg-white rounded">
 			<h3>ログイン</h3>
-
+			<?php if ( isset($_SESSION['errors']) ) {
+					echo '<div class="text-danger">';
+					foreach ($_SESSION['errors'] as $error) {
+						echo "<div>* $error </div>";
+					}
+					echo '</div>';
+					unset($_SESSION['errors']);
+				}
+				?>
 			<div class="form-group">
 				<label for="email">メールアドレス</label>
 				<input type="email" name="user_email" id="email" class="form-control" placeholder="メールアドレス">

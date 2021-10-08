@@ -1,7 +1,7 @@
 <?php
 	require '../common/database.php';
 	require '../common/auth.php'; // ここでsession_start
-
+	session_start();
 	$title = 'CBT APP';
 	$description = '';
 
