@@ -8,7 +8,7 @@ require '../common/auth.php';
 
 // ログインしてないならログイン画面へ
 if ( !isLogin() ) {
-	header('Location: ../../login/');
+	header('Location: ../login/');
 	exit;
 }
 
@@ -17,8 +17,8 @@ $htmltitle = "出来事編集";
 $user_id = getLoginUserId();
 $user_name = getLoginUserName();
 $event_id = $_GET['event_id'];
-var_dump($event_id);
-var_dump($user_id);
+//var_dump($event_id);
+//var_dump($user_id);
 $database_handler = getDatabaseConnection();
 $sql = $database_handler->prepare("SELECT * FROM events WHERE id = :event_id");
 //$sql->bindParam(':user_id', $user_id);
