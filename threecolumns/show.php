@@ -30,7 +30,16 @@ var_dump(
 */
 
 $database_handler = getDatabaseConnection();
-$sql = $database_handler->prepare("SELECT * FROM threecolumns WHERE user_id = :user_id AND id = :event_id ORDER BY updated_at DESC");
+$sql = $database_handler->
+  prepare(
+		"SELECT * FROM 
+			threecolumns 
+		WHERE 
+			user_id = :user_id 
+		AND 
+			id = :event_id 
+		ORDER BY updated_at DESC"
+	);
 
 $sql->bindParam(':user_id', $user_id);
 $sql->bindParam(':event_id', $event_id);
@@ -112,7 +121,7 @@ foreach($names as $name) {
 						<td><?php echo $threecolumns['emotion_name']; ?></td>
 						<td><?php echo $threecolumns['thinking']; ?></td>
 						<td><?php 
-										foreach($names as $name) { 
+								foreach($names as $name) { 
 											echo $name['habit_name'] . "<br>"; 
 										} 
 								?>
