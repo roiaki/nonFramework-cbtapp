@@ -28,8 +28,27 @@ $sql->bindParam(':user_id', $user_id);
 $sql->execute();
 
 $event = $sql->fetch(PDO::FETCH_ASSOC);
-//var_dump($event['title']);
-//exit;
+$event_title = $event['title'];
+$event_content = $event['content'];
+
+// 作成ボタンを押した段階でテーブルに一旦データを仮格納する
+$sql = $database_handler->
+			prepare(
+				"INSERT INTO 
+				threecolumns 
+				(user_id, event_id, title, content) 
+				VALUES 
+				(:user_id, :event_id, :title, :content)"
+			);
+
+$sql->bindParam(':user_id', $user_id);
+$sql->bindParam(':event_id', $event_id);
+$sql->bindParam(':title', $event_title);
+$sql->bindParam(':content', $event_content);
+
+$sql->execute();
+
+$threecol_id = $database_handler->lastInsertId();
 
 include('../common/head.php');
 ?>
@@ -44,6 +63,9 @@ include('../common/head.php');
 
 				<form method="post" action="action/store.php">
 					<div class="form-group">
+
+						<input type="hidden" name="threecol_id" value="<?php echo $threecol_id; ?>">
+						
 						<label>出来事タイトル</label>
 						<input type="hidden" name="event_id" value="<?php echo $event['id']; ?>" >
 						<input type="text" class="form-control" id="title" name="title" value="<?php echo $event['title']; ?> " readonly>
