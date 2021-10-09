@@ -11,12 +11,25 @@ if (!isLogin()) {
 	header('Location: ../../login/');
 }
 
-$title = "3コラム新規作成";
+$htmltitle = "3コラム新規作成";
 
 $user_id = getLoginUserId();
 $user_name = getLoginUserName();
 
+$event_id = $_GET['event_id'];
+//var_dump($_GET);
+//exit;
 $database_handler = getDatabaseConnection();
+$sql = $database_handler->prepare("SELECT * FROM events WHERE user_id = :user_id AND id = :event_id");
+
+$sql->bindParam(':event_id', $event_id);
+$sql->bindParam(':user_id', $user_id);
+
+$sql->execute();
+
+$event = $sql->fetch(PDO::FETCH_ASSOC);
+//var_dump($event['title']);
+//exit;
 
 include('../common/head.php');
 ?>
@@ -32,7 +45,8 @@ include('../common/head.php');
 				<form method="post" action="action/store.php">
 					<div class="form-group">
 						<label>出来事タイトル</label>
-						<input type="text" class="form-control" id="title" name="title">
+						<input type="hidden" name="event_id" value="<?php echo $event['id']; ?>" >
+						<input type="text" class="form-control" id="title" name="title" value="<?php echo $event['title']; ?> " readonly>
 
 						<?php if (isset($_SESSION['error_title'])) {
 							echo '<div class="text-danger">';
@@ -48,7 +62,7 @@ include('../common/head.php');
 					<div class="form-group">
 						<!-- 内容 -->
 						<label for="content">①出来事 の 内容</label>
-						<textarea class="form-control" id="content" name="content" cols="90" rows="7"></textarea>
+						<textarea class="form-control" id="content" name="content" cols="90" rows="7" readonly><?php echo $event['content']; ?></textarea>
 
 						<?php if (isset($_SESSION['error_content'])) {
 							echo '<div class="text-danger">';

@@ -58,20 +58,20 @@ while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($events as $event) { ?>
-					<tr>
-						<td><?php echo $event['id']; ?></td>
-						<td><?php echo $event['title']; ?></td>
-						<td><?php echo $event['content']; ?></td>
-						<td><?php echo $event['updated_at']; ?>
+			<?php foreach ($events as $event) { ?>
+				<tr>
+					<td><?php echo $event['id']; ?></td>
+					<td><?php echo $event['title']; ?></td>
+					<td><?php echo $event['content']; ?></td>
+					<td><?php echo $event['updated_at']; ?>
 
-							<p><a href="show.php?event_id=<?php echo $event['id']; ?> ">詳細</a></p>
-						</td>
-					</tr>
-				<?php  } ?>
+					<p><a href="show.php?event_id=<?php echo $event['id']; ?> ">詳細</a></p>
+					</td>
+				</tr>
+			<?php  } ?>
 			</tbody>
 		</table>
-		<a href="create.php" class="btn btn-primary btn-lg" role="button" aria-pressed="true">新規作成</a>
+		
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
