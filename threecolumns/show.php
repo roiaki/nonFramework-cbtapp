@@ -40,11 +40,45 @@ $sql->execute();
 $threecolumns = [];
 
 while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
-	array_push($threecolumns, $result);
+	$threecolumns = $result;
 	//var_dump($result);
 }
-var_dump($threecolumns);
+
+//var_dump($threecolumn);
 //exit;
+
+$sql = $database_handler->
+	prepare(
+		"SELECT 
+			habit_id, 
+			habit_name 
+		FROM 
+			habits 
+		JOIN 
+			habit_threecolumn 
+		ON 
+			habits.id = habit_threecolumn.habit_id 
+		WHERE 
+			habit_threecolumn.threecol_id = :threecol_id"
+	);
+
+$sql->bindParam(':threecol_id', $threecolumns['id']);
+
+$sql->execute();
+
+$names = [];
+
+while($result = $sql->fetch(PDO::FETCH_ASSOC)) {
+	array_push($names, $result);
+}
+
+/*
+foreach($names as $name) {
+
+	echo $name['habit_name'];
+	
+}
+*/
 
 ?>
 
@@ -64,26 +98,33 @@ var_dump($threecolumns);
 					<th>内容</th>
 					<th>感情</th>
 					<th>考えたこと</th>
+					<th>考え方の癖</th>
 					<th>更新日</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($threecolumns as $threecolumn) { ?>
+				
 					<tr>
-						<td><?php echo $threecolumn['id']; ?></td>
-						<td><?php echo $threecolumn['event_id']; ?></td>
-						<td><?php echo $threecolumn['title']; ?></td>
-						<td><?php echo $threecolumn['content']; ?></td>
-						<td><?php echo $threecolumn['emotion_name']; ?></td>
-						<td><?php echo $threecolumn['thinking']; ?></td>
-						<td><?php echo $threecolumn['updated_at']; ?></td>
+						<td><?php echo $threecolumns['id']; ?></td>
+						<td><?php echo $threecolumns['event_id']; ?></td>
+						<td><?php echo $threecolumns['title']; ?></td>
+						<td><?php echo $threecolumns['content']; ?></td>
+						<td><?php echo $threecolumns['emotion_name']; ?></td>
+						<td><?php echo $threecolumns['thinking']; ?></td>
+						<td><?php 
+										foreach($names as $name) { 
+											echo $name['habit_name'] . "<br>"; 
+										} 
+								?>
+						</td>
+						<td><?php echo $threecolumns['updated_at']; ?></td>
 					</tr>
-				<?php  } ?>
+				
 			</tbody>
 		</table>
 
-		<a href="edit.php?threecol_id=<?php echo $threecolumn['id']; ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">編集</a>
-		<a href="delete.php?threecol_id=<?php echo $threecolumn['id']; ?>" class="btn btn-danger btn-lg" role="button" onclick="confirmDelete();return false;" aria-pressed="true">削除</a>
+		<a href="edit.php?threecol_id=<?php echo $threecolumns['id']; ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">編集</a>
+		<a href="delete.php?threecol_id=<?php echo $threecolumns['id']; ?>" class="btn btn-danger btn-lg" role="button" onclick="confirmDelete();return false;" aria-pressed="true">削除</a>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
