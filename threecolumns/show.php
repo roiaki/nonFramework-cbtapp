@@ -100,8 +100,7 @@ foreach($names as $name) {
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr class="table-primary">
-
-					<th>id</th>
+				  <th>id</th>
 					<th>出来事id</th>
 					<th>タイトル</th>
 					<th>内容</th>
@@ -111,24 +110,23 @@ foreach($names as $name) {
 					<th>更新日</th>
 				</tr>
 			</thead>
-			<tbody>
-				
-					<tr>
-						<td><?php echo $threecolumns['id']; ?></td>
-						<td><?php echo $threecolumns['event_id']; ?></td>
-						<td><?php echo $threecolumns['title']; ?></td>
-						<td><?php echo $threecolumns['content']; ?></td>
-						<td><?php echo $threecolumns['emotion_name']; ?></td>
-						<td><?php echo $threecolumns['thinking']; ?></td>
-						<td><?php 
-								foreach($names as $name) { 
-											echo $name['habit_name'] . "<br>"; 
-										} 
-								?>
-						</td>
-						<td><?php echo $threecolumns['updated_at']; ?></td>
-					</tr>
-				
+
+			<tbody>				
+				<tr>
+					<td><?php echo $threecolumns['id']; ?></td>
+					<td><?php echo $threecolumns['event_id']; ?></td>
+					<td><?php echo $threecolumns['title']; ?></td>
+					<td><?php echo $threecolumns['content']; ?></td>
+					<td><?php echo $threecolumns['emotion_name']; ?></td>
+					<td><?php echo $threecolumns['thinking']; ?></td>
+					<td><?php 
+							foreach ( $names as $name ) { 
+								echo $name['habit_name'] . "<br>"; 
+							} 
+							?>
+					</td>
+					<td><?php echo $threecolumns['updated_at']; ?></td>
+				</tr>			
 			</tbody>
 		</table>
 

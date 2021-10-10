@@ -64,7 +64,6 @@ while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
 					<td><?php echo $event['title']; ?></td>
 					<td><?php echo $event['content']; ?></td>
 					<td><?php echo $event['updated_at']; ?>
-
 					<p><a href="show.php?event_id=<?php echo $event['id']; ?> ">詳細</a></p>
 					</td>
 				</tr>
