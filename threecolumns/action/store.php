@@ -81,13 +81,13 @@ try {
 		"UPDATE threecolumns 
     SET user_id = :user_id, 
       event_id = :event_id, 
-			title = :title, 
-			content = :content, 
-			emotion_name = :emotion_name,
-			emotion_strength = :emotion_strength, 
-			thinking = :thinking, 
-			created_at = NOW(), 
-			updated_at = NOW() 
+      title = :title, 
+      content = :content, 
+      emotion_name = :emotion_name,
+      emotion_strength = :emotion_strength, 
+      thinking = :thinking, 
+      created_at = NOW(), 
+      updated_at = NOW() 
     WHERE
       id = :threecol_id 
     AND 
@@ -152,10 +152,10 @@ try {
 	if (isset($_POST['habit'][2])) {
 		$sql2 = $database_handler->prepare(
 			"INSERT INTO 
-                    habit_threecolumn 
-                    (threecol_id, habit_id, updated_at, created_at) 
-                VALUES 
-                    (:threecol_id, :habit_id, :created_at, :updated_at)"
+        habit_threecolumn 
+        (threecol_id, habit_id, updated_at, created_at) 
+      VALUES 
+        (:threecol_id, :habit_id, :created_at, :updated_at)"
 		);
 		$habit_id = 3;
 		$sql2->bindParam(":habit_id", $habit_id);
@@ -168,10 +168,10 @@ try {
 	if (isset($_POST['habit'][3])) {
 		$sql2 = $database_handler->prepare(
 			"INSERT INTO 
-                    habit_threecolumn 
-                    (threecol_id, habit_id, updated_at, created_at) 
-                VALUES 
-                    (:threecol_id, :habit_id, :created_at, :updated_at)"
+        habit_threecolumn 
+        (threecol_id, habit_id, updated_at, created_at) 
+       VALUES 
+        (:threecol_id, :habit_id, :created_at, :updated_at)"
 		);
 		$habit_id = 4;
 		$sql2->bindParam(":habit_id", $habit_id);
@@ -184,10 +184,10 @@ try {
 	if (isset($_POST['habit'][4])) {
 		$sql2 = $database_handler->prepare(
 			"INSERT INTO 
-                    habit_threecolumn 
-                    (threecol_id, habit_id, updated_at, created_at) 
-                VALUES 
-                    (:threecol_id, :habit_id, :created_at, :updated_at)"
+        habit_threecolumn 
+        (threecol_id, habit_id, updated_at, created_at) 
+      VALUES 
+        (:threecol_id, :habit_id, :created_at, :updated_at)"
 		);
 		$habit_id = 5;
 		$sql2->bindParam(":habit_id", $habit_id);
@@ -216,10 +216,10 @@ try {
 	if (isset($_POST['habit'][6])) {
 		$sql2 = $database_handler->prepare(
 			"INSERT INTO 
-                    habit_threecolumn 
-                    (threecol_id, habit_id, updated_at, created_at) 
-                VALUES 
-                    (:threecol_id, :habit_id, :created_at, :updated_at)"
+        habit_threecolumn 
+        (threecol_id, habit_id, updated_at, created_at) 
+      VALUES 
+        (:threecol_id, :habit_id, :created_at, :updated_at)"
 		);
 		$habit_id = 7;
 		$sql2->bindParam(":habit_id", $habit_id);
