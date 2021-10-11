@@ -25,8 +25,7 @@ include('../common/head.php');
 	<?php include('../common/global_menu.php'); ?>
 
 	<div class="container">
-
-		<div class="col-5">
+    <div class="col-5">
 			<h3>出来事　新規作成</h3>
 			
 			<form method="post" action="action/store.php">
