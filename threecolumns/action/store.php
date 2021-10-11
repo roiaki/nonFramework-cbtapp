@@ -105,7 +105,6 @@ try {
   // コミット
   //$res = $database_handler->commit();
 
-
   $count = count($_POST['habit']);
   //var_dump($count);
   //exit;
@@ -230,11 +229,11 @@ try {
   var_dump($sql2);
   $res = $database_handler->commit();
 } catch (Exception $e) {
-  // エラーが起きたらロールバック
-  $database_handler->rollBack();
+    // エラーが起きたらロールバック
+    $database_handler->rollBack();
 
-  echo $e->getMessage();
-  exit;
+    echo $e->getMessage();
+    exit;
 }
 
 if ($res) {

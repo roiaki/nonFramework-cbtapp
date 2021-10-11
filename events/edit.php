@@ -32,7 +32,6 @@ while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
   $events = $result;
 }
 
-var_dump($events['title']);
 include('../common/head.php');
 ?>
 

@@ -6,8 +6,8 @@ require '../common/auth.php';
 
 // ログインしてないならログイン画面へ
 if (!isLogin()) {
-    header('Location: ../login/');
-    exit;
+  header('Location: ../login/');
+  exit;
 }
 
 $htmltitle = '詳細ページ';
@@ -29,52 +29,61 @@ var_dump(
 );
 */
 
-$database_handler = getDatabaseConnection();
-$sql = $database_handler
+
+try {
+  $database_handler = getDatabaseConnection();
+  $sql = $database_handler
     ->prepare(
-        "SELECT * FROM 
-          threecolumns
-        WHERE 
-          user_id = :user_id 
-        AND 
-          id = :event_id 
-        ORDER BY updated_at DESC"
+      "SELECT * FROM 
+        threecolumns
+      WHERE 
+        user_id = :user_id 
+      AND 
+        id = :event_id 
+      ORDER BY updated_at DESC"
     );
 
-$sql->bindParam(':user_id', $user_id);
-$sql->bindParam(':event_id', $event_id);
+  $sql->bindParam(':user_id', $user_id);
+  $sql->bindParam(':event_id', $event_id);
 
-$sql->execute();
+  $sql->execute();
 
-$threecolumns = [];
+  $threecolumns = [];
 
-while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
+  while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
     $threecolumns = $result;
-}
+  }
 
-$sql = $database_handler->
-    prepare(
-        "SELECT 
-          habit_id, 
-          habit_name 
-        FROM 
-          habits 
-        JOIN 
-          habit_threecolumn 
-        ON 
-          habits.id = habit_threecolumn.habit_id 
-        WHERE 
-          habit_threecolumn.threecol_id = :threecol_id"
-    );
+  $sql = $database_handler
+      ->prepare(
+          "SELECT 
+            habit_id, 
+            habit_name 
+          FROM 
+            habits 
+          JOIN 
+            habit_threecolumn 
+          ON 
+            habits.id = habit_threecolumn.habit_id 
+          WHERE 
+            habit_threecolumn.threecol_id = :threecol_id"
+      );
 
-$sql->bindParam(':threecol_id', $threecolumns['id']);
+  $sql->bindParam(':threecol_id', $threecolumns['id']);
 
-$sql->execute();
+  $sql->execute();
 
-$names = [];
+  $names = [];
 
-while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
-    array_push($names, $result);
+  while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
+      array_push($names, $result);
+  }
+} catch (Exception $e) {
+    // エラーが起きたらロールバック
+    $database_handler->rollBack();
+
+    echo $e->getMessage();
+    exit;
 }
 
 ?>
