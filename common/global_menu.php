@@ -1,7 +1,5 @@
 <?php
 
-	//var_dump('$_session' , $_SESSION['user']);
-
 	if ( isset($_SESSION['user']['id']) ) {
 		$user_id = $_SESSION['user']['id'];
 	}
@@ -20,13 +18,11 @@
 		$msg = "こんにちは";
 	}
 
-//var_dump($user_id, $user_name,);
 ?>
 <header class="mb-4">
-		<nav class="navbar navbar-expand-sm navbar-light bg-light">
-			<a class="navbar-brand fw-bold ml-5" href="../events">CBT APP</a>
-
-			<div class="collapse navbar-collapse" id="nav-bar">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <a class="navbar-brand fw-bold ml-5" href="../events">CBT APP</a>
+			<div>< class="collapse navbar-collapse" id="nav-bar"></div>
 				<ul class="navbar-nav mr-auto"></ul>
 				<ul class="navbar-nav">
 					<?php if (isset($user_id)) { ?>
