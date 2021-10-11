@@ -26,8 +26,7 @@ include('../common/head.php');
       <div class="form-group">
         <label for="name">お名前</label>
         <input type="text" name="user_name" id="name" class="form-control" placeholder="お名前" 
-               value="<?php if (isset($_POST['user_name'])) {echo $_POST['user_name'];
-        } ?>">
+               value="<?php if (isset($_POST['user_name'])) {echo $_POST['user_name'];} ?>">
 
         <?php if (isset($_SESSION['name'])) {
           echo '<div class="text-danger">';

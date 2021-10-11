@@ -32,12 +32,12 @@ var_dump(
 $database_handler = getDatabaseConnection();
 $sql = $database_handler->prepare(
     "SELECT * FROM 
-            threecolumns
-        WHERE 
-            user_id = :user_id 
-        AND 
-            id = :event_id 
-        ORDER BY updated_at DESC"
+      threecolumns
+    WHERE 
+      user_id = :user_id 
+    AND 
+      id = :event_id 
+    ORDER BY updated_at DESC"
   );
 
 $sql->bindParam(':user_id', $user_id);
@@ -53,17 +53,17 @@ while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
 
 $sql = $database_handler->prepare(
     "SELECT 
-            habit_id, 
-            habit_name 
-        FROM 
-            habits 
-        JOIN 
-            habit_threecolumn 
-        ON 
-            habits.id = habit_threecolumn.habit_id 
-        WHERE 
-            habit_threecolumn.threecol_id = :threecol_id"
-  );
+      habit_id, 
+      habit_name 
+    FROM 
+      habits 
+    JOIN 
+      habit_threecolumn 
+    ON 
+      habits.id = habit_threecolumn.habit_id 
+    WHERE 
+      habit_threecolumn.threecol_id = :threecol_id"
+);
 
 $sql->bindParam(':threecol_id', $threecolumns['id']);
 
