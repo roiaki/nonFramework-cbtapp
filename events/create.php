@@ -28,7 +28,7 @@ include('../common/head.php');
     <div class="col-5">
 			<h3>出来事　新規作成</h3>
 			
-			<form method="post" action="action/store.php">
+		  <form method="post" action="action/store.php">
 				<div class="form-group">
 					<label>出来事タイトル</label>
 					<input type="text" class="form-control" id="title" name="title">
