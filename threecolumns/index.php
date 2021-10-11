@@ -48,9 +48,8 @@ while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
 		<h3>3カラム一覧</h3>
 
 		<table class="table table-striped table-bordered">
-			<thead>
+		  <thead>
 				<tr class="table-primary">
-
 					<th>3カラムid</th>
 					<th>感情</th>
 					<th>強さ</th>

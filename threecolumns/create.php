@@ -66,7 +66,7 @@ include('../common/head.php');
 
 						<input type="hidden" name="threecol_id" value="<?php echo $threecol_id; ?>">
 						
-						<label>出来事タイトル</label>
+          <label>出来事タイトル</label>
 						<input type="hidden" name="event_id" value="<?php echo $event['id']; ?>" >
 						<input type="text" class="form-control" id="title" name="title" value="<?php echo $event['title']; ?> " readonly>
 

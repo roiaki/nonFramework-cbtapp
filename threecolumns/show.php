@@ -53,9 +53,6 @@ while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
 	//var_dump($result);
 }
 
-//var_dump($threecolumn);
-//exit;
-
 $sql = $database_handler->
 	prepare(
 		"SELECT 
@@ -81,14 +78,6 @@ while($result = $sql->fetch(PDO::FETCH_ASSOC)) {
 	array_push($names, $result);
 }
 
-/*
-foreach($names as $name) {
-
-	echo $name['habit_name'];
-	
-}
-*/
-
 ?>
 
 <body>
@@ -100,7 +89,7 @@ foreach($names as $name) {
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr class="table-primary">
-				  <th>id</th>
+			    <th>id</th>
 					<th>出来事id</th>
 					<th>タイトル</th>
 					<th>内容</th>
