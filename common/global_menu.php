@@ -42,16 +42,13 @@
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li><a class="nav-link" href="../events/action/logout.php">ログアウト</a></li>
                 <li><a class="nav-link" href="../withdraw/delete_confirm.php">退会</a></li>
-
               </ul>
             </div>
-
           <?php } else { ?>
-
             <li class="nav-item"><a class="dropdown-item" href="../login/">ログイン</a></li>
             <li class="nav-item"><a class="dropdown-item" href="../register/">会員登録</a></li>
           <?php } ?>
         </ul>
       </div>
-    </nav>
+  </nav>
 </header>
