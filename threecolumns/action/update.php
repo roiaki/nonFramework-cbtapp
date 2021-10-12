@@ -2,6 +2,7 @@
 session_start();
 
 require '../../common/database.php';
+require '../../common/updateCheckbox.php';
 require '../../common/auth.php';
 
 // ログインしていないならログイン画面へ
@@ -22,7 +23,7 @@ $edit_thinking = $_POST['thinking'];
 
 $edit_title = $_POST['title'];
 var_dump($_POST, $edit_content);
-//exit;
+exit;
 
 $database_handler = getDatabaseConnection();
 
@@ -59,13 +60,36 @@ try {
     $sql->execute();
 
     // 中間テーブル更新
+    // 一度該当データを全部消してチェックがあるものは　insert する
     $sql2 = $database_handler
         ->prepare(
-            "UPDATE
-              habit_threecolumn
-            SET
-              "
+            "DELETE
+            FROM 
+              habit_threecolumn 
+            WHERE threecol_id = :threecol_id"
         );
+    
+    $sql2->bindParam(':threecol_id', $threecol_id);
+    $sql2->execute();
+
+    if ( isset($_POST[0]) ) {
+
+        $sql2 = $database_handler
+            ->prepare(
+                "INSERT INTO 
+                habit_threecolumn 
+                (threecol_id, habit_id, updated_at, created_at) 
+                VALUES 
+                (:threecol_id, :habit_id, :created_at, :updated_at)"
+            );
+            $habit_id = 1;
+            $sql2->bindParam(":habit_id", $habit_id);
+            $sql2->bindParam(":threecol_id", $threecol_id);
+            $sql2->bindParam(":created_at", $created_at);
+            $sql2->bindParam(":updated_at", $created_at);
+        
+            $sql2->execute();
+    }
 
     // コミット
     $res = $database_handler->commit();

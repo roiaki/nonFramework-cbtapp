@@ -73,20 +73,21 @@ $database_handler->beginTransaction();
 
 try {
   $sql = $database_handler->prepare(
-    "UPDATE threecolumns 
-      SET user_id = :user_id, 
-      event_id = :event_id, 
-      title = :title, 
-      content = :content, 
-      emotion_name = :emotion_name,
-      emotion_strength = :emotion_strength, 
-      thinking = :thinking, 
-      created_at = NOW(), 
-      updated_at = NOW() 
-    WHERE
-      id = :threecol_id 
-    AND 
-      user_id = :user_id"
+      "UPDATE threecolumns 
+      SET 
+        user_id = :user_id, 
+        event_id = :event_id, 
+        title = :title, 
+        content = :content, 
+        emotion_name = :emotion_name,
+        emotion_strength = :emotion_strength, 
+        thinking = :thinking, 
+        created_at = NOW(), 
+        updated_at = NOW() 
+      WHERE
+        id = :threecol_id 
+      AND 
+        user_id = :user_id"
   );
 
   //var_dump($sql);

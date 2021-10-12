@@ -32,14 +32,14 @@ $event_title = $event['title'];
 $event_content = $event['content'];
 
 // 作成ボタンを押した段階でテーブルに一旦データを仮格納する
-$sql = $database_handler->
-      prepare(
-        "INSERT INTO 
+$sql = $database_handler
+    ->prepare(
+      "INSERT INTO 
         threecolumns 
         (user_id, event_id, title, content) 
-        VALUES 
+      VALUES 
         (:user_id, :event_id, :title, :content)"
-      );
+    );
 
 $sql->bindParam(':user_id', $user_id);
 $sql->bindParam(':event_id', $event_id);

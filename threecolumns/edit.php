@@ -70,19 +70,32 @@ try {
         // $result が配列なので　$habit_nameを二次元配列とする
         array_push($habit_ids, $result);
     }
+    var_dump($habit_ids);
 
-    foreach ($habit_ids as $habit_id) {
-        foreach ($habit_id as $key => $value) {
-            $id[] = $value;  
-        }  
+    // 配列宣言
+    $id = [];
+    $name['aa'] = "a";
+    $name['bb'] = "b";
+    var_dump($name['aa']);
+
+    if ( isset($habit_ids) ) {
+        foreach ($habit_ids as $habit_id) {
+            foreach ($habit_id as $key => $value) {
+                $id[] = $value;
+            }  
+        }
     }
+    
     var_dump($id);
+   
     if ( in_array(1, $id) ) {
-      echo "aaa";
+        echo "aaa";
     }
    
 
 } catch (Exception $e) {
+    // エラーが起きたらロールバック
+    $database_handler->rollBack();
     echo $e->getMessage();
     exit;
 }
@@ -108,13 +121,13 @@ include('../common/head.php');
           <input type="text" class="form-control" id="title" name="title" value="<?php echo $threecolumn['title']; ?>">
         </div>
         <?php
-        if (isset($_SESSION['error_title'])) {
-          echo '<div class="text-danger">';
-          foreach ($_SESSION['error_title'] as $error) {
-            echo "<div>* $error </div>";
-          }
-          echo '</div>';
-          unset($_SESSION['error_title']);
+        if ( isset($_SESSION['error_title']) ) {
+            echo '<div class="text-danger">';
+            foreach ($_SESSION['error_title'] as $error) {
+                echo "<div>* $error </div>";
+            }
+            echo '</div>';
+            unset($_SESSION['error_title']);
         }
         ?>
 
@@ -124,13 +137,13 @@ include('../common/head.php');
           <textarea class="form-control" id="content" name="content" cols="90" rows="7"><?php echo $threecolumn['content']; ?></textarea>
         </div>
         <?php
-        if (isset($_SESSION['error_content'])) {
-          echo '<div class="text-danger">';
-          foreach ($_SESSION['error_content'] as $error) {
-            echo "<div>* $error </div>";
-          }
-          echo '</div>';
-          unset($_SESSION['error_content']);
+        if ( isset($_SESSION['error_content']) ) {
+            echo '<div class="text-danger">';
+            foreach ($_SESSION['error_content'] as $error) {
+                echo "<div>* $error </div>";
+            }
+            echo '</div>';
+            unset($_SESSION['error_content']);
         }
         ?>
 
@@ -169,10 +182,12 @@ include('../common/head.php');
           
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="habit[0]" id="1" 
-              <?php 
-                if (in_array(1, $id) ) {
-                  echo "checked";
-                }
+              <?php
+                if ( isset($id) ) {
+                    if ( in_array(1, $id) ) {
+                        echo "checked";
+                    }
+                }  
               ?> 
             >
             <label class="form-check-label" for="1">
@@ -182,9 +197,11 @@ include('../common/head.php');
 
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="habit[1]" id="2"
-              <?php 
-                  if (in_array(2, $id) ) {
-                    echo "checked";
+              <?php
+                  if ( isset($id) ) {
+                      if ( in_array(2, $id) ) {
+                          echo "checked";
+                      }
                   }
               ?> 
             >
@@ -195,11 +212,13 @@ include('../common/head.php');
 
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="habit[2]" id="3"
-              <?php 
-                  if (in_array(3, $id) ) {
-                    echo "checked";
-                  }
-              ?>
+              <?php
+                  if ( isset($id) ) {
+                      if ( in_array(3, $id) ) {
+                          echo "checked";
+                    }
+                  }  
+              ?> 
             >
             <label class="form-check-label" for="3">
               根拠のない推論
@@ -208,11 +227,13 @@ include('../common/head.php');
 
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="habit[3]" id="4"
-              <?php 
-                  if (in_array(4, $id) ) {
-                    echo "checked";
-                  }
-              ?>
+              <?php
+                  if ( isset($id) ) {
+                      if ( in_array(4, $id) ) {
+                        echo "checked";
+                      }
+                  }  
+              ?> 
             >
             <label class="form-check-label" for="4">
               白か黒か思考
@@ -221,11 +242,13 @@ include('../common/head.php');
 
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="habit[4]" id="5"
-              <?php 
-                  if (in_array(5, $id) ) {
-                    echo "checked";
-                  }
-              ?>
+              <?php
+                  if ( isset($id) ) {
+                      if ( in_array(5, $id) ) {
+                          echo "checked";
+                      }
+                  }  
+              ?> 
             >
             <label class="form-check-label" for="5">
               すべき思考
@@ -234,11 +257,13 @@ include('../common/head.php');
 
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="habit[5]" id="6"
-              <?php 
-                  if (in_array(6, $id) ) {
-                    echo "checked";
-                  }
-              ?>
+              <?php
+                  if ( isset($id) ) {
+                      if ( in_array(6, $id) ) {
+                         echo "checked";
+                      }
+                  }  
+              ?> 
             >
             <label class="form-check-label" for="6">
               過大評価と過少評価
@@ -246,11 +271,13 @@ include('../common/head.php');
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" name="habit[6]" id="7"
-              <?php 
-                  if (in_array(7, $id) ) {
-                    echo "checked";
-                  }
-              ?>
+              <?php
+                  if ( isset($id) ) {
+                      if ( in_array(7, $id) ) {
+                          echo "checked";
+                      }
+                  }  
+              ?> 
             >
             <label class="form-check-label" for="7">
               感情による決めつけ
