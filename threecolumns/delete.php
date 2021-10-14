@@ -25,12 +25,12 @@ $database_handler = getDatabaseConnection();
 // トランザクション開始
 $database_handler->beginTransaction();
 try {
-    $sql = $database_handler->prepare("DELETE FROM threecolumns WHERE id = :threecol_id");
-    //var_dump($sql);
+    $stmt = $database_handler->prepare("DELETE FROM threecolumns WHERE id = :threecol_id");
+    //var_dump($stmt);
     // プリペアードステートメントを使うとサニタイズ処理は不要となる   
-    $sql->bindParam(':threecol_id', $threecol_id);
-    //$sql->bindParam(':user_id', $user_id);
-    $sql->execute();
+    $stmt->bindParam(':threecol_id', $threecol_id);
+    //$stmt->bindParam(':user_id', $user_id);
+    $stmt->execute();
 
     // コミット
     $res = $database_handler->commit();
@@ -49,7 +49,7 @@ if ( $res ) {
     $error_message = '削除失敗';
 }
 // プリペアードステートメントを削除
-$sql = null;
+$stmt = null;
 
 // データベースの接続を閉じる
 $database_handler = null;

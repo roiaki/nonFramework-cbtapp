@@ -7,7 +7,7 @@ require '../../common/validation.php';
 
 // ログインしていないならログイン画面へ
 if (!isLogin()) {
-  header('Location: ../../login/');
+    header('Location: ../../login/');
 }
 
 $htmltitle = "";
@@ -72,163 +72,163 @@ $database_handler = getDatabaseConnection();
 $database_handler->beginTransaction();
 
 try {
-  $sql = $database_handler->prepare(
-      "UPDATE threecolumns 
-      SET 
-        user_id = :user_id, 
-        event_id = :event_id, 
-        title = :title, 
-        content = :content, 
-        emotion_name = :emotion_name,
-        emotion_strength = :emotion_strength, 
-        thinking = :thinking, 
-        created_at = NOW(), 
-        updated_at = NOW() 
-      WHERE
-        id = :threecol_id 
-      AND 
-        user_id = :user_id"
-  );
-
-  //var_dump($sql);
-  $sql->bindParam(":user_id", $user_id);
-  $sql->bindParam(":event_id", $event_id);
-  $sql->bindParam(":title", $clean['title']);
-  $sql->bindParam(":content", $clean['content']);
-  $sql->bindParam(":emotion_name", $clean['emotion_name']);
-  $sql->bindParam(":emotion_strength", $emotion_strenght);
-  $sql->bindParam(":thinking", $clean['thinking']);
-
-  $sql->bindParam(":threecol_id", $threecol_id);
-
-  $sql->execute();
-
-  // コミット
-  //$res = $database_handler->commit();
-
-  $count = count($_POST['habit']);
-  //var_dump($count);
-  //exit;
-
-  // 課題　冗長をなくす
-  if (isset($_POST['habit'][0])) {
-    $sql2 = $database_handler->prepare(
-      "INSERT INTO 
-          habit_threecolumn 
-          (threecol_id, habit_id, updated_at, created_at) 
-        VALUES 
-          (:threecol_id, :habit_id, :created_at, :updated_at)"
-    );
-    $habit_id = 1;
-    $sql2->bindParam(":habit_id", $habit_id);
-    $sql2->bindParam(":threecol_id", $threecol_id);
-    $sql2->bindParam(":created_at", $created_at);
-    $sql2->bindParam(":updated_at", $created_at);
-
-    $sql2->execute();
-  }
-  if (isset($_POST['habit'][1])) {
-    $sql2 = $database_handler->prepare(
-      "INSERT INTO 
-        habit_threecolumn 
-        (threecol_id, habit_id, updated_at, created_at) 
-      VALUES 
-        (:threecol_id, :habit_id, :created_at, :updated_at)"
+    $stmt = $database_handler->prepare(
+        "UPDATE threecolumns 
+        SET 
+          user_id = :user_id, 
+          event_id = :event_id, 
+          title = :title, 
+          content = :content, 
+          emotion_name = :emotion_name,
+          emotion_strength = :emotion_strength, 
+          thinking = :thinking, 
+          created_at = NOW(), 
+          updated_at = NOW() 
+        WHERE
+          id = :threecol_id 
+        AND 
+          user_id = :user_id"
     );
 
-    $habit_id = 2;
-    $sql2->bindParam(":habit_id", $habit_id);
-    $sql2->bindParam(":threecol_id", $threecol_id);
-    $sql2->bindParam(":created_at", $created_at);
-    $sql2->bindParam(":updated_at", $created_at);
+    $stmt->bindParam(":user_id", $user_id);
+    $stmt->bindParam(":event_id", $event_id);
+    $stmt->bindParam(":title", $clean['title']);
+    $stmt->bindParam(":content", $clean['content']);
+    $stmt->bindParam(":emotion_name", $clean['emotion_name']);
+    $stmt->bindParam(":emotion_strength", $emotion_strenght);
+    $stmt->bindParam(":thinking", $clean['thinking']);
 
-    $sql2->execute();
-  }
-  if (isset($_POST['habit'][2])) {
-    $sql2 = $database_handler->prepare(
-      "INSERT INTO 
-        habit_threecolumn 
-        (threecol_id, habit_id, updated_at, created_at) 
-      VALUES 
-        (:threecol_id, :habit_id, :created_at, :updated_at)"
-    );
-    $habit_id = 3;
-    $sql2->bindParam(":habit_id", $habit_id);
-    $sql2->bindParam(":threecol_id", $threecol_id);
-    $sql2->bindParam(":created_at", $created_at);
-    $sql2->bindParam(":updated_at", $created_at);
+    $stmt->bindParam(":threecol_id", $threecol_id);
 
-    $sql2->execute();
-  }
-  if (isset($_POST['habit'][3])) {
+    $stmt->execute();
 
-    $sql2 = $database_handler->prepare(
-      "INSERT INTO 
-        habit_threecolumn 
-        (threecol_id, habit_id, updated_at, created_at) 
-       VALUES 
-        (:threecol_id, :habit_id, :created_at, :updated_at)"
-    );
 
-    $habit_id = 4;
-    $sql2->bindParam(":habit_id", $habit_id);
-    $sql2->bindParam(":threecol_id", $threecol_id);
-    $sql2->bindParam(":created_at", $created_at);
-    $sql2->bindParam(":updated_at", $created_at);
+    // 課題　冗長をなくす
+    if (isset($_POST['habit'][0])) {
+        $stmt2 = $database_handler->prepare(
+            "INSERT INTO 
+              habit_threecolumn 
+              (threecol_id, habit_id, updated_at, created_at) 
+            VALUES 
+              (:threecol_id, :habit_id, :created_at, :updated_at)"
+        );
+        $habit_id = 1;
+        $stmt2->bindParam(":habit_id", $habit_id);
+        $stmt2->bindParam(":threecol_id", $threecol_id);
+        $stmt2->bindParam(":created_at", $created_at);
+        $stmt2->bindParam(":updated_at", $created_at);
 
-    $sql2->execute();
-  }
-  if (isset($_POST['habit'][4])) {
-    $sql2 = $database_handler->prepare(
-      "INSERT INTO 
-        habit_threecolumn 
-        (threecol_id, habit_id, updated_at, created_at) 
-      VALUES 
-        (:threecol_id, :habit_id, :created_at, :updated_at)"
-    );
-    $habit_id = 5;
-    $sql2->bindParam(":habit_id", $habit_id);
-    $sql2->bindParam(":threecol_id", $threecol_id);
-    $sql2->bindParam(":created_at", $created_at);
-    $sql2->bindParam(":updated_at", $created_at);
+        $stmt2->execute();
+    }
 
-    $sql2->execute();
-  }
-  if (isset($_POST['habit'][5])) {
-    $sql2 = $database_handler->prepare(
-      "INSERT INTO
-        habit_threecolumn 
+    if (isset($_POST['habit'][1])) {
+        $stmt2 = $database_handler->prepare(
+            "INSERT INTO 
+              habit_threecolumn 
+              (threecol_id, habit_id, updated_at, created_at) 
+            VALUES 
+              (:threecol_id, :habit_id, :created_at, :updated_at)"
+        );
+
+        $habit_id = 2;
+        $stmt2->bindParam(":habit_id", $habit_id);
+        $stmt2->bindParam(":threecol_id", $threecol_id);
+        $stmt2->bindParam(":created_at", $created_at);
+        $stmt2->bindParam(":updated_at", $created_at);
+
+        $stmt2->execute();
+    }
+
+    if (isset($_POST['habit'][2])) {
+        $stmt2 = $database_handler->prepare(
+            "INSERT INTO 
+              habit_threecolumn 
+              (threecol_id, habit_id, updated_at, created_at) 
+            VALUES 
+              (:threecol_id, :habit_id, :created_at, :updated_at)"
+        );
+        $habit_id = 3;
+        $stmt2->bindParam(":habit_id", $habit_id);
+        $stmt2->bindParam(":threecol_id", $threecol_id);
+        $stmt2->bindParam(":created_at", $created_at);
+        $stmt2->bindParam(":updated_at", $created_at);
+
+        $stmt2->execute();
+    }
+
+    if (isset($_POST['habit'][3])) {
+
+        $stmt2 = $database_handler->prepare(
+            "INSERT INTO 
+              habit_threecolumn 
+              (threecol_id, habit_id, updated_at, created_at) 
+            VALUES 
+              (:threecol_id, :habit_id, :created_at, :updated_at)"
+        );
+
+        $habit_id = 4;
+        $stmt2->bindParam(":habit_id", $habit_id);
+        $stmt2->bindParam(":threecol_id", $threecol_id);
+        $stmt2->bindParam(":created_at", $created_at);
+        $stmt2->bindParam(":updated_at", $created_at);
+
+        $stmt2->execute();
+    }
+
+    if (isset($_POST['habit'][4])) {
+        $stmt2 = $database_handler->prepare(
+            "INSERT INTO 
+              habit_threecolumn 
+              (threecol_id, habit_id, updated_at, created_at) 
+            VALUES 
+              (:threecol_id, :habit_id, :created_at, :updated_at)"
+        );
+        $habit_id = 5;
+        $stmt2->bindParam(":habit_id", $habit_id);
+        $stmt2->bindParam(":threecol_id", $threecol_id);
+        $stmt2->bindParam(":created_at", $created_at);
+        $stmt2->bindParam(":updated_at", $created_at);
+
+        $stmt2->execute();
+    }
+
+    if (isset($_POST['habit'][5])) {
+        $stmt2 = $database_handler->prepare(
+            "INSERT INTO
+              habit_threecolumn 
 			  (threecol_id, habit_id, updated_at, created_at) 
-      VALUES 
-        (:threecol_id, :habit_id, :created_at, :updated_at)"
-    );
-    $habit_id = 6;
-    $sql2->bindParam(":habit_id", $habit_id);
-    $sql2->bindParam(":threecol_id", $threecol_id);
-    $sql2->bindParam(":created_at", $created_at);
-    $sql2->bindParam(":updated_at", $created_at);
+            VALUES 
+              (:threecol_id, :habit_id, :created_at, :updated_at)"
+        );
+        $habit_id = 6;
+        $stmt2->bindParam(":habit_id", $habit_id);
+        $stmt2->bindParam(":threecol_id", $threecol_id);
+        $stmt2->bindParam(":created_at", $created_at);
+        $stmt2->bindParam(":updated_at", $created_at);
 
-    $sql2->execute();
-  }
-  if (isset($_POST['habit'][6])) {
-    $sql2 = $database_handler->prepare(
-      "INSERT INTO 
-        habit_threecolumn 
-        (threecol_id, habit_id, updated_at, created_at) 
-      VALUES 
-        (:threecol_id, :habit_id, :created_at, :updated_at)"
-    );
-    $habit_id = 7;
-    $sql2->bindParam(":habit_id", $habit_id);
-    $sql2->bindParam(":threecol_id", $threecol_id);
-    $sql2->bindParam(":created_at", $created_at);
-    $sql2->bindParam(":updated_at", $created_at);
+        $stmt2->execute();
+    }
 
-    $sql2->execute();
-  }
+    if (isset($_POST['habit'][6])) {
+        $stmt2 = $database_handler->prepare(
+            "INSERT INTO 
+              habit_threecolumn 
+              (threecol_id, habit_id, updated_at, created_at) 
+            VALUES 
+              (:threecol_id, :habit_id, :created_at, :updated_at)"
+        );
+        $habit_id = 7;
+        $stmt2->bindParam(":habit_id", $habit_id);
+        $stmt2->bindParam(":threecol_id", $threecol_id);
+        $stmt2->bindParam(":created_at", $created_at);
+        $stmt2->bindParam(":updated_at", $created_at);
 
-  var_dump($sql2);
-  $res = $database_handler->commit();
+        $stmt2->execute();
+    }
+
+    // コミット
+    $res = $database_handler->commit();
+
 } catch (Exception $e) {
     // エラーが起きたらロールバック
     $database_handler->rollBack();
@@ -238,13 +238,14 @@ try {
 }
 
 if ($res) {
-  $succes_message = '保存成功';
+    $succes_message = '保存成功';
 } else {
-  $error_message['database'] = '保存に失敗しました';
+    $error_message['database'] = '保存に失敗しました';
 }
 
 // プリペアードステートメントを削除
-$sql = null;
+$stmt = null;
+$stmt2 = null;
 
 // データベースの接続を閉じる
 $database_handler = null;

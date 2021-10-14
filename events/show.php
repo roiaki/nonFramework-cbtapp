@@ -29,16 +29,16 @@ var_dump(
 */
 
 $database_handler = getDatabaseConnection();
-$sql = $database_handler->prepare("SELECT * FROM events WHERE user_id = :user_id AND id = :event_id ORDER BY updated_at DESC");
+$stmt = $database_handler->prepare("SELECT * FROM events WHERE user_id = :user_id AND id = :event_id ORDER BY updated_at DESC");
 
-$sql->bindParam(':user_id', $user_id);
-$sql->bindParam(':event_id', $event_id);
+$stmt->bindParam(':user_id', $user_id);
+$stmt->bindParam(':event_id', $event_id);
 
-$sql->execute();
+$stmt->execute();
 
 $events = [];
 
-while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
+while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
   array_push($events, $result);
 }
 
@@ -73,7 +73,6 @@ while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
     </table>
     <a href="../threecolumns/create.php?event_id=<?php echo $event['id']; ?>" 
       class="btn btn-success btn-lg" role="button" 
-      onclick="confirmDelete();return false;" 
       aria-pressed="true">この出来事を元に3コラムを作成
     </a>
 

@@ -21,13 +21,13 @@ $user_name = getLoginUserName();
 //var_dump($user_id, $user_name);
 
 $database_handler = getDatabaseConnection();
-$sql = $database_handler->prepare("SELECT * FROM events WHERE user_id = :user_id ORDER BY updated_at DESC");
-$sql->bindParam(':user_id', $user_id);
-$sql->execute();
+$stmt = $database_handler->prepare("SELECT * FROM events WHERE user_id = :user_id ORDER BY updated_at DESC");
+$stmt->bindParam(':user_id', $user_id);
+$stmt->execute();
 
 $events = [];
 
-while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
+while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
   array_push($events, $result);
   //var_dump($result);
 }

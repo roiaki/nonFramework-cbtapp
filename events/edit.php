@@ -20,14 +20,14 @@ $event_id = $_GET['event_id'];
 //var_dump($event_id);
 //var_dump($user_id);
 $database_handler = getDatabaseConnection();
-$sql = $database_handler->prepare("SELECT * FROM events WHERE id = :event_id");
-//$sql->bindParam(':user_id', $user_id);
-$sql->bindParam(':event_id', $event_id);
-$sql->execute();
+$stmt = $database_handler->prepare("SELECT * FROM events WHERE id = :event_id");
+//$stmt->bindParam(':user_id', $user_id);
+$stmt->bindParam(':event_id', $event_id);
+$stmt->execute();
 
 $events = [];
 
-while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
+while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
   $events = $result;
 }

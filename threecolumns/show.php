@@ -32,7 +32,7 @@ var_dump(
 
 try {
   $database_handler = getDatabaseConnection();
-  $sql = $database_handler
+  $stmt = $database_handler
     ->prepare(
       "SELECT * FROM 
         threecolumns
@@ -43,18 +43,18 @@ try {
       ORDER BY updated_at DESC"
     );
 
-  $sql->bindParam(':user_id', $user_id);
-  $sql->bindParam(':event_id', $event_id);
+  $stmt->bindParam(':user_id', $user_id);
+  $stmt->bindParam(':event_id', $event_id);
 
-  $sql->execute();
+  $stmt->execute();
 
   $threecolumns = [];
 
-  while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
+  while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $threecolumns = $result;
   }
 
-  $sql = $database_handler
+  $stmt = $database_handler
       ->prepare(
           "SELECT 
             habit_id, 
@@ -69,13 +69,13 @@ try {
             habit_threecolumn.threecol_id = :threecol_id"
       );
 
-  $sql->bindParam(':threecol_id', $threecolumns['id']);
+  $stmt->bindParam(':threecol_id', $threecolumns['id']);
 
-  $sql->execute();
+  $stmt->execute();
 
   $names = [];
 
-  while ($result = $sql->fetch(PDO::FETCH_ASSOC)) {
+  while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
       array_push($names, $result);
   }
 } catch (Exception $e) {
@@ -124,6 +124,9 @@ try {
         </tr>
       </tbody>
     </table>
+    <a href="edit.php?threecol_id=<?php echo $threecolumns['id']; ?>" class="btn btn-success btn-lg" role="button" aria-pressed="true">
+      これを元に7コラム作成する
+    </a>
     <a href="edit.php?threecol_id=<?php echo $threecolumns['id']; ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">
       編集
     </a>

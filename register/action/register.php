@@ -45,18 +45,18 @@ if ( $_SESSION['name'] ) {
 $database_handler = getDatabaseConnection();
 
 try {
-    $sql = $database_handler->prepare("INSERT INTO users(name, email, password) VALUES (:name, :email, :password)");
+    $stmt = $database_handler->prepare("INSERT INTO users(name, email, password) VALUES (:name, :email, :password)");
 
 //var_dump($sgl);
 //exit;
 
     $password = password_hash($user_password, PASSWORD_DEFAULT);
 
-    $sql->bindParam(':name', htmlspecialchars($user_name));
-    $sql->bindParam(':email', $user_email);
-    $sql->bindParam(':password', $password);
+    $stmt->bindParam(':name', htmlspecialchars($user_name));
+    $stmt->bindParam(':email', $user_email);
+    $stmt->bindParam(':password', $password);
 
-    $sql->execute();
+    $stmt->execute();
 
     // ユーザー情報をセッションへ格納
     $_SESSION['user'] = [

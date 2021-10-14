@@ -22,7 +22,7 @@ var_dump($threecol_id);
 
 $database_handler = getDatabaseConnection();
 try {
-    $sql = $database_handler
+    $stmt = $database_handler
         ->prepare(
           "SELECT 
             * 
@@ -34,18 +34,18 @@ try {
             user_id = :user_id"
         );
 
-    $sql->bindParam(':threecol_id', $threecol_id);
-    $sql->bindParam(':user_id', $user_id);
+    $stmt->bindParam(':threecol_id', $threecol_id);
+    $stmt->bindParam(':user_id', $user_id);
 
-    $sql->execute();
+    $stmt->execute();
 
     $threecolumn = [];  
 
-    while ( $result = $sql->fetch(PDO::FETCH_ASSOC) ) {
+    while ( $result = $stmt->fetch(PDO::FETCH_ASSOC) ) {
         $threecolumn = $result;
     }
 
-    $sql2 = $database_handler
+    $stmt2 = $database_handler
         ->prepare(
           "SELECT            
             habit_id 
@@ -59,14 +59,14 @@ try {
             habit_threecolumn.threecol_id = :threecol_id"
         );
 
-    $sql2->bindParam(':threecol_id', $threecol_id);
+    $stmt2->bindParam(':threecol_id', $threecol_id);
 
-    $sql2->execute();
-    //var_dump($sql2);
+    $stmt2->execute();
+    //var_dump($stmt2);
 
     $habit_ids = [];
 
-    while ( $result = $sql2->fetch(PDO::FETCH_ASSOC) ) {
+    while ( $result = $stmt2->fetch(PDO::FETCH_ASSOC) ) {
         // $result が配列なので　$habit_nameを二次元配列とする
         array_push($habit_ids, $result);
     }

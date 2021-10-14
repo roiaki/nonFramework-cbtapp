@@ -68,13 +68,13 @@ $database_handler = getDatabaseConnection();
 $database_handler->beginTransaction();
 
 try {
-    $sql = $database_handler->prepare("INSERT INTO events (user_id, title, content, updated_at, created_at) VALUES(:user_id, :title, :content, :created_at, :updated_at)");
-    $sql->bindParam(":user_id", $user_id);
-    $sql->bindParam(":title", $clean['title']);
-    $sql->bindParam(":content", $clean['content']);
-    $sql->bindParam(":created_at", $created_at);
-    $sql->bindParam(":updated_at", $created_at);
-    $sql->execute();
+    $stmt = $database_handler->prepare("INSERT INTO events (user_id, title, content, updated_at, created_at) VALUES(:user_id, :title, :content, :created_at, :updated_at)");
+    $stmt->bindParam(":user_id", $user_id);
+    $stmt->bindParam(":title", $clean['title']);
+    $stmt->bindParam(":content", $clean['content']);
+    $stmt->bindParam(":created_at", $created_at);
+    $stmt->bindParam(":updated_at", $created_at);
+    $stmt->execute();
 
     // コミット
     $res = $database_handler->commit();
@@ -93,7 +93,7 @@ if ( $res ) {
 //var_dump($succes_message);
 //exit;
 // プリペアードステートメントを削除
-$sql = null;
+$stmt = null;
 
 // データベースの接続を閉じる
 $database_handler = null;

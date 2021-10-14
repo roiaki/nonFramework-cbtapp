@@ -17,7 +17,7 @@ $user_id = getLoginUserId();
 $user_name = getLoginUserName();
 
 $event_id = $_GET['event_id'];
-var_dump($_GET);
+//var_dump($_GET);
 //exit;
 $database_handler = getDatabaseConnection();
 $stmt = $database_handler->prepare("SELECT * FROM events WHERE user_id = :user_id AND id = :event_id");
