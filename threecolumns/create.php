@@ -40,14 +40,16 @@ $stmt = $database_handler
       VALUES 
         (:user_id, :event_id, :title, :content)"
     );
-
+//var_dump($stmt);
 $stmt->bindParam(':user_id', $user_id);
 $stmt->bindParam(':event_id', $event_id);
 $stmt->bindParam(':title', $event_title);
 $stmt->bindParam(':content', $event_content);
+//var_dump($stmt);
 
 $stmt->execute();
-
+//var_dump($stmt);
+//exit;
 $threecol_id = $database_handler->lastInsertId();
 
 include('../common/head.php');

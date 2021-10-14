@@ -1,20 +1,38 @@
 <?php
 session_start();
-
 require '../../common/database.php';
-//require '../../common/updateCheckbox.php';
 require '../../common/auth.php';
+
+class update
+{
+/*
+  * 中間テーブル更新メソッド
+  * @param int $habit_id 中間テーブルID 
+  * @param $sql string   sql文
+  */ 
+  function updateIntermediateTable($database_handler, $sql, $habit_id, $threecol_id, $created_at, $updated_at) {
+    //$database_handler = getDatabaseConnection();
+    $stmt2 = $database_handler
+        ->prepare($sql);
+
+        $habit_id = $habit_id;
+        $stmt2->bindParam(":habit_id", $habit_id);
+        $stmt2->bindParam(":threecol_id", $threecol_id);
+        $stmt2->bindParam(":created_at", $created_at);
+        $stmt2->bindParam(":updated_at", $updated_at);
+
+        $stmt2->execute();
+  }
+
+}
+
+$sample = new update();
+
 
 // ログインしていないならログイン画面へ
 if ( !isLogin() ) {
 	header('Location: ../../login/');
 }
-
-// 関数
-// 
-//function getHabitId() {
-
-//}
 
 $user_id = getLoginUserId();
 $user_name = getLoginUserName();
@@ -31,11 +49,6 @@ $edit_title = $_POST['title'];
 
 $created_at = date('Y-m-d H:i:s');
 $updated_at = date('Y-m-d H:i:s');
-var_dump($created_at);
-
-var_dump($_POST, $edit_content);
-var_dump($_POST['habit'][0]);
-//exit;
 
 $database_handler = getDatabaseConnection();
 
@@ -75,7 +88,9 @@ try {
 
     // 中間テーブル更新処理
     // 一度該当データを全部消してチェックがあるものは　insert する
-    $stmt2 = $database_handler
+
+    // 該当データ削除
+    $stmt = $database_handler
         ->prepare(
             "DELETE
             FROM 
@@ -84,9 +99,10 @@ try {
               threecol_id = :threecol_id"
         );
     
-    $stmt2->bindParam(':threecol_id', $threecol_id);
-    $stmt2->execute();
+    $stmt->bindParam(':threecol_id', $threecol_id);
+    $stmt->execute();
 
+    // 中間テーブル更新
     $sql = "INSERT INTO 
               habit_threecolumn 
               (threecol_id, 
@@ -99,8 +115,12 @@ try {
               :created_at, 
               :updated_at)";
 
+    
+
     if ( isset($_POST['habit'][0]) ) {
 
+      $sample->updateIntermediateTable($database_handler, $sql, 1, $threecol_id, $created_at, $updated_at);
+/*
         $stmt2 = $database_handler
             ->prepare($sql);
 
@@ -111,10 +131,15 @@ try {
             $stmt2->bindParam(":updated_at", $updated_at);
         
             $stmt2->execute();
+*/
+
+
     }
 
     if ( isset($_POST['habit'][1]) ) {
 
+        $sample->updateIntermediateTable($database_handler, $sql, 2, $threecol_id, $created_at, $updated_at);
+/*
         $stmt2 = $database_handler
             ->prepare($sql);
 
@@ -125,10 +150,14 @@ try {
             $stmt2->bindParam(":updated_at", $created_at);
         
             $stmt2->execute();
+*/
+
     }
 
     if ( isset($_POST['habit'][2]) ) {
 
+      $sample->updateIntermediateTable($database_handler, $sql, 3, $threecol_id, $created_at, $updated_at);
+/*
         $stmt2 = $database_handler
             ->prepare($sql);
 
@@ -139,10 +168,14 @@ try {
             $stmt2->bindParam(":updated_at", $created_at);
         
             $stmt2->execute();
+*/
+
     }
 
     if ( isset($_POST['habit'][3]) ) {
 
+      $sample->updateIntermediateTable($database_handler, $sql, 4, $threecol_id, $created_at, $updated_at);
+/*
         $stmt2 = $database_handler
             ->prepare($sql);
 
@@ -153,10 +186,13 @@ try {
             $stmt2->bindParam(":updated_at", $created_at);
         
             $stmt2->execute();
+*/
     }
 
     if ( isset($_POST['habit'][4]) ) {
-
+      
+      $sample->updateIntermediateTable($database_handler, $sql, 5, $threecol_id, $created_at, $updated_at);
+/*
         $stmt2 = $database_handler
             ->prepare($sql);
 
@@ -167,10 +203,13 @@ try {
             $stmt2->bindParam(":updated_at", $created_at);
         
             $stmt2->execute();
+*/
     }
 
     if ( isset($_POST['habit'][5]) ) {
 
+      $sample->updateIntermediateTable($database_handler, $sql, 6, $threecol_id, $created_at, $updated_at);
+/*
         $stmt2 = $database_handler
             ->prepare($sql);
 
@@ -181,10 +220,13 @@ try {
             $stmt2->bindParam(":updated_at", $created_at);
         
             $stmt2->execute();
+*/
     }
 
     if ( isset($_POST['habit'][6]) ) {
 
+      $sample->updateIntermediateTable($database_handler, $sql, 7, $threecol_id, $created_at, $updated_at);
+/*
         $stmt2 = $database_handler
             ->prepare($sql);
 
@@ -195,6 +237,7 @@ try {
             $stmt2->bindParam(":updated_at", $created_at);
         
             $stmt2->execute();
+*/
     }
 
     // ここまで中間テーブル更新処理
@@ -231,4 +274,5 @@ $database_handler = null;
 
 header('Location: ../../threecolumns');
 exit;
+
 ?>
