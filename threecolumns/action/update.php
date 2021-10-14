@@ -3,9 +3,7 @@ session_start();
 require '../../common/database.php';
 require '../../common/auth.php';
 
-class update
-{
-/*
+  /*
   * 中間テーブル更新メソッド
   * @param int $habit_id 中間テーブルID 
   * @param $sql string   sql文
@@ -23,11 +21,6 @@ class update
 
         $stmt2->execute();
   }
-
-}
-
-$sample = new update();
-
 
 // ログインしていないならログイン画面へ
 if ( !isLogin() ) {
@@ -119,125 +112,44 @@ try {
 
     if ( isset($_POST['habit'][0]) ) {
 
-      $sample->updateIntermediateTable($database_handler, $sql, 1, $threecol_id, $created_at, $updated_at);
-/*
-        $stmt2 = $database_handler
-            ->prepare($sql);
-
-            $habit_id = 1;
-            $stmt2->bindParam(":habit_id", $habit_id);
-            $stmt2->bindParam(":threecol_id", $threecol_id);
-            $stmt2->bindParam(":created_at", $created_at);
-            $stmt2->bindParam(":updated_at", $updated_at);
-        
-            $stmt2->execute();
-*/
-
+        updateIntermediateTable($database_handler, $sql, 1, $threecol_id, $created_at, $updated_at);
 
     }
 
     if ( isset($_POST['habit'][1]) ) {
 
-        $sample->updateIntermediateTable($database_handler, $sql, 2, $threecol_id, $created_at, $updated_at);
-/*
-        $stmt2 = $database_handler
-            ->prepare($sql);
-
-            $habit_id = 2;
-            $stmt2->bindParam(":habit_id", $habit_id);
-            $stmt2->bindParam(":threecol_id", $threecol_id);
-            $stmt2->bindParam(":created_at", $created_at);
-            $stmt2->bindParam(":updated_at", $created_at);
-        
-            $stmt2->execute();
-*/
+        updateIntermediateTable($database_handler, $sql, 2, $threecol_id, $created_at, $updated_at);
 
     }
 
     if ( isset($_POST['habit'][2]) ) {
 
-      $sample->updateIntermediateTable($database_handler, $sql, 3, $threecol_id, $created_at, $updated_at);
-/*
-        $stmt2 = $database_handler
-            ->prepare($sql);
-
-            $habit_id = 3;
-            $stmt2->bindParam(":habit_id", $habit_id);
-            $stmt2->bindParam(":threecol_id", $threecol_id);
-            $stmt2->bindParam(":created_at", $created_at);
-            $stmt2->bindParam(":updated_at", $created_at);
-        
-            $stmt2->execute();
-*/
+      updateIntermediateTable($database_handler, $sql, 3, $threecol_id, $created_at, $updated_at);
 
     }
 
     if ( isset($_POST['habit'][3]) ) {
 
-      $sample->updateIntermediateTable($database_handler, $sql, 4, $threecol_id, $created_at, $updated_at);
-/*
-        $stmt2 = $database_handler
-            ->prepare($sql);
+      updateIntermediateTable($database_handler, $sql, 4, $threecol_id, $created_at, $updated_at);
 
-            $habit_id = 4;
-            $stmt2->bindParam(":habit_id", $habit_id);
-            $stmt2->bindParam(":threecol_id", $threecol_id);
-            $stmt2->bindParam(":created_at", $created_at);
-            $stmt2->bindParam(":updated_at", $created_at);
-        
-            $stmt2->execute();
-*/
     }
 
     if ( isset($_POST['habit'][4]) ) {
       
-      $sample->updateIntermediateTable($database_handler, $sql, 5, $threecol_id, $created_at, $updated_at);
-/*
-        $stmt2 = $database_handler
-            ->prepare($sql);
+      updateIntermediateTable($database_handler, $sql, 5, $threecol_id, $created_at, $updated_at);
 
-            $habit_id = 5;
-            $stmt2->bindParam(":habit_id", $habit_id);
-            $stmt2->bindParam(":threecol_id", $threecol_id);
-            $stmt2->bindParam(":created_at", $created_at);
-            $stmt2->bindParam(":updated_at", $created_at);
-        
-            $stmt2->execute();
-*/
     }
 
     if ( isset($_POST['habit'][5]) ) {
 
-      $sample->updateIntermediateTable($database_handler, $sql, 6, $threecol_id, $created_at, $updated_at);
-/*
-        $stmt2 = $database_handler
-            ->prepare($sql);
+      updateIntermediateTable($database_handler, $sql, 6, $threecol_id, $created_at, $updated_at);
 
-            $habit_id = 6;
-            $stmt2->bindParam(":habit_id", $habit_id);
-            $stmt2->bindParam(":threecol_id", $threecol_id);
-            $stmt2->bindParam(":created_at", $created_at);
-            $stmt2->bindParam(":updated_at", $created_at);
-        
-            $stmt2->execute();
-*/
     }
 
     if ( isset($_POST['habit'][6]) ) {
 
-      $sample->updateIntermediateTable($database_handler, $sql, 7, $threecol_id, $created_at, $updated_at);
-/*
-        $stmt2 = $database_handler
-            ->prepare($sql);
+      updateIntermediateTable($database_handler, $sql, 7, $threecol_id, $created_at, $updated_at);
 
-            $habit_id = 7;
-            $stmt2->bindParam(":habit_id", $habit_id);
-            $stmt2->bindParam(":threecol_id", $threecol_id);
-            $stmt2->bindParam(":created_at", $created_at);
-            $stmt2->bindParam(":updated_at", $created_at);
-        
-            $stmt2->execute();
-*/
     }
 
     // ここまで中間テーブル更新処理
