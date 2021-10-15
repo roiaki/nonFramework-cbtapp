@@ -44,11 +44,11 @@ function emailCheck($check_value) {
 function emailDuplicationCheck($check_value) {
     $database_handler = getDatabaseConnection();
     
-    $sql = $database_handler->prepare('SELECT id FROM users WHERE email = :user_email');
-    $sql->bindParam(':user_email', $check_value);
-    $sql->execute();
+    $stmt = $database_handler->prepare('SELECT id FROM users WHERE email = :user_email');
+    $stmt->bindParam(':user_email', $check_value);
+    $stmt->execute();
 
-    $result = $sql->fetch(PDO::FETCH_ASSOC);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($result) {
         $status = "NG";

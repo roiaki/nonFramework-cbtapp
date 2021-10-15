@@ -16,7 +16,11 @@ $htmltitle = "出来事編集";
 
 $user_id = getLoginUserId();
 $user_name = getLoginUserName();
-$event_id = $_GET['event_id'];
+
+if ( isset($_GET['event_id']) ) {
+  $event_id = $_GET['event_id'];
+}
+
 //var_dump($_POST);
 //var_dump($_GET);
 var_dump("SESSION");
@@ -25,7 +29,6 @@ var_dump($_SESSION);
 //var_dump($user_id);
 $database_handler = getDatabaseConnection();
 $stmt = $database_handler->prepare("SELECT * FROM events WHERE id = :event_id");
-
 $stmt->bindParam(':event_id', $event_id);
 $stmt->execute();
 
@@ -34,7 +37,7 @@ $event = [];
 while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
   $event = $result;
 }
-var_dump("session_event_id". $_SESSION['event_id']);
+//var_dump("session_event_id". $_SESSION['event_id']);
 
 // バリデーションエラーリダイレクト時の値の受け渡し
 if ( isset($_SESSION['event_id']) ) {
