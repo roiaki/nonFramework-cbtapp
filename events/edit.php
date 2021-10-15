@@ -17,20 +17,43 @@ $htmltitle = "出来事編集";
 $user_id = getLoginUserId();
 $user_name = getLoginUserName();
 $event_id = $_GET['event_id'];
-//var_dump($event_id);
+//var_dump($_POST);
+//var_dump($_GET);
+var_dump("SESSION");
+var_dump($_SESSION);
+
 //var_dump($user_id);
 $database_handler = getDatabaseConnection();
 $stmt = $database_handler->prepare("SELECT * FROM events WHERE id = :event_id");
-//$stmt->bindParam(':user_id', $user_id);
+
 $stmt->bindParam(':event_id', $event_id);
 $stmt->execute();
 
-$events = [];
+$event = [];
 
 while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-
-  $events = $result;
+  $event = $result;
 }
+var_dump("session_event_id". $_SESSION['event_id']);
+
+// バリデーションエラーリダイレクト時の値の受け渡し
+if ( isset($_SESSION['event_id']) ) {
+  $event['id'] = $_SESSION['event_id'];
+  unset($_SESSION['event_id']);
+}
+
+if ( isset($_SESSION['title']) ) {
+  $event['title'] = $_SESSION['title'];
+  unset($_SESSION['title']);
+}
+
+if ( isset($_SESSION['content']) ) {
+  $event['content'] = $_SESSION['content'];
+  unset($_SESSION['content']);
+}
+
+// バリデーションエラータイトル
+
 
 include('../common/head.php');
 ?>
@@ -41,13 +64,21 @@ include('../common/head.php');
   <div class="container">
 
     <div class="col-5">
-      <h3>id = <?php echo $_GET['event_id']; ?> 番　出来事　編集ページ</h3>
+      <h3>id = <?php echo $event['id']; ?> 番　出来事　編集ページ</h3>
 
       <form method="post" action="action/update.php">
-        <input type="hidden" name="event_id" value="<?php echo $events['id']; ?>">
+        <input type="hidden" name="event_id" 
+               value="<?php if (isset($event['id']) ) {
+                          echo $event['id']; 
+                      } ?>"
+               >
         <div class="form-group">
           <label>出来事タイトル</label>
-          <input type="text" class="form-control" id="title" name="title" value="<?php echo $events['title']; ?>">
+          <input type="text" class="form-control" id="title" name="title" 
+                 value="<?php if (isset($event['title']) ) { 
+                          echo $event['title']; }
+                        ?>"
+                 >
         </div>
         <?php
         if (isset($_SESSION['error_title'])) {
@@ -63,7 +94,8 @@ include('../common/head.php');
         <div class="form-group">
           <!-- 内容 -->
           <label for="content">出来事 の 内容</label>
-          <textarea class="form-control" id="content" name="content" cols="90" rows="7"><?php echo $events['content']; ?></textarea>
+          <textarea class="form-control" id="content" name="content" cols="90" rows="7"><?php if ( isset($event['content']) ) {echo $event['content']; }
+          unset($_SESSION['content']); ?></textarea>
         </div>
         <?php
         if (isset($_SESSION['error_content'])) {
