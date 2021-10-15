@@ -11,10 +11,21 @@ if (!isLogin()) {
   header('Location: ../../login/');
 }
 
-$title = "出来事新規作成";
+$htmltitle = "出来事新規作成";
 
 $user_id = getLoginUserId();
 $user_name = getLoginUserName();
+
+// バリデーションエラーリダイレクト時の値の表示
+if ( isset($_SESSION['title']) ) {
+  $title = $_SESSION['title'];
+  unset($_SESSION['title']);
+}
+
+if ( isset($_SESSION['content']) ) {
+  $content = $_SESSION['content'];
+  unset($_SESSION['content']);
+}
 
 $database_handler = getDatabaseConnection();
 
@@ -31,7 +42,13 @@ include('../common/head.php');
       <form method="post" action="action/store.php">
         <div class="form-group">
           <label>出来事タイトル</label>
-          <input type="text" class="form-control" id="title" name="title">
+          <input type="text" class="form-control" id="title" name="title"
+            value="<?php 
+                      if (isset($title)) {
+                        echo $title;
+                      }
+                   ?>"
+            >
         </div>
         <?php if (isset($_SESSION['error_title'])) {
           echo '<div class="text-danger">';
@@ -47,7 +64,11 @@ include('../common/head.php');
         <div class="form-group">
           <!-- 内容 -->
           <label for="content">出来事 の 内容</label>
-          <textarea class="form-control" id="content" name="content" cols="90" rows="7"></textarea>
+          <textarea class="form-control" id="content" name="content" cols="90" rows="7"><?php 
+                      if ( isset($content) ) {
+                        echo $content;
+                      }
+                      ?></textarea>
         </div>
         <?php if (isset($_SESSION['error_content'])) {
           echo '<div class="text-danger">';
