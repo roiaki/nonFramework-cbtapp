@@ -1,4 +1,3 @@
-
 <body>
   <?php include '../common/global_menu.php'; ?>
 

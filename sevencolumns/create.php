@@ -50,7 +50,7 @@ $stmt->execute();
 
 $threecol_id = $database_handler->lastInsertId();
 
-include('../common/head.php');
+include '../common/head.php';
 ?>
 
 <body>

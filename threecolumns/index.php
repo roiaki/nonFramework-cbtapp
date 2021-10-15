@@ -25,13 +25,13 @@ $stmt = $database_handler->prepare("SELECT * FROM threecolumns WHERE user_id = :
 $stmt->bindParam(':user_id', $user_id);
 $stmt->execute();
 
-$events = [];
+$threecolumns = [];
 
 while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-  array_push($events, $result);
+  array_push($threecolumns, $result);
   //var_dump($result);
 }
-//var_dump($events);
+//var_dump($threecolumns);
 
 // ロジックとビューの分離
 include 'views/index_view.php';

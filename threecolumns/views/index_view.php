@@ -13,19 +13,21 @@
       <thead>
         <tr class="table-primary">
           <th>3カラムid</th>
+          <th>出来事</th>
           <th>感情</th>
           <th>強さ</th>
           <th>更新日</th>
         </tr>
       </thead>
       <tbody>
-      <?php foreach ($events as $event) { ?>
+      <?php foreach ($threecolumns as $threecolumn) { ?>
         <tr>
-          <td><?php echo $event['id']; ?></td>
-          <td><?php echo $event['title']; ?></td>
-          <td><?php echo $event['content']; ?></td>
-          <td><?php echo $event['updated_at']; ?>
-          <p><a href="show.php?event_id=<?php echo $event['id']; ?> ">詳細</a></p>
+          <td><?php echo $threecolumn['id']; ?></td>
+          <td><?php echo $threecolumn['title'] ?></td>
+          <td><?php echo $threecolumn['emotion_name']; ?></td>
+          <td><?php echo $threecolumn['emotion_strength']; ?></td>
+          <td><?php echo $threecolumn['updated_at']; ?>
+          <p><a href="show.php?threecol_id=<?php echo $threecolumn['id']; ?> ">詳細</a></p>
           </td>
         </tr>
       <?php  } ?>

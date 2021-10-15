@@ -12,7 +12,7 @@ function emptyCheck($check_value) {
 
 // 4文字以上チェック
 function minSize($check_value) {
-    if (mb_strlen($check_value) < 4) {
+    if ( mb_strlen($check_value) < 4 ) {
         $status = "NG";
     } else {
         $status = "OK";
@@ -22,7 +22,7 @@ function minSize($check_value) {
 
 // 255文字未満チェック
 function maxSize($check_value) {
-    if (255 < mb_strlen($check_value)) {
+    if ( 255 < mb_strlen($check_value) ) {
         $status = "NG";
     } else {
         $status = "OK";
@@ -32,7 +32,7 @@ function maxSize($check_value) {
 
 // メールアドレスか
 function emailCheck($check_value) {
-    if (filter_var($check_value, FILTER_VALIDATE_EMAIL) == false) {
+    if ( filter_var($check_value, FILTER_VALIDATE_EMAIL) == false ) {
         $status = "NG";
     } else {
         $status = "OK";
@@ -50,7 +50,7 @@ function emailDuplicationCheck($check_value) {
 
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($result) {
+    if ( $result ) {
         $status = "NG";
     } else {
         $status = "OK";

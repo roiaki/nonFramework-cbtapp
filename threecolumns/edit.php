@@ -85,7 +85,7 @@ try {
 }
 
 
-include('../common/head.php');
+include '../common/head.php';
 
 // ロジックとビューの分離
 include 'views/edit_view.php';

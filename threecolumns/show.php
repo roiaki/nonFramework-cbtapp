@@ -14,7 +14,8 @@ $user_id = getLoginUserId();
 $user_name = getLoginUserName();
 
 //var_dump('GET', $_GET);
-$event_id = $_GET['event_id'];
+$threecol_id = $_GET['threecol_id'];
+//var_dump($threecol_id);
 /*
 var_dump(
     "event_id = " . $event_id,
@@ -34,12 +35,12 @@ try {
       WHERE 
         user_id = :user_id 
       AND 
-        id = :event_id 
+        id = :threecol_id 
       ORDER BY updated_at DESC"
     );
 
   $stmt->bindParam(':user_id', $user_id);
-  $stmt->bindParam(':event_id', $event_id);
+  $stmt->bindParam(':threecol_id', $threecol_id);
 
   $stmt->execute();
 
@@ -48,7 +49,7 @@ try {
   while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
     $threecolumns = $result;
   }
-
+var_dump($threecolumns);
   $stmt = $database_handler
       ->prepare(
           "SELECT 

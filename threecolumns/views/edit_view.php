@@ -27,7 +27,7 @@
 
         <div class="form-group">
           <!-- 内容 -->
-          <label for="content">出来事 の 内容</label>
+          <label for="content">①出来事 の 内容</label>
           <textarea class="form-control" id="content" name="content" cols="90" rows="7"><?php echo $threecolumn['content']; ?></textarea>
         </div>
         <?php

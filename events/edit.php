@@ -1,5 +1,9 @@
 <?php
 session_start();
+// require 指定したファイルが読み込めない場足致命的エラーとなり処理停止
+// include 読み込めない場合　警告となりそのまま処理続く
+// コア部分や後の処理に影響する場合はrequire
+// 画面処理などの場合はinclude
 
 require '../common/database.php';
 require '../common/auth.php';
@@ -11,8 +15,6 @@ if (!isLogin()) {
   header('Location: ../login/');
   exit;
 }
-
-
 
 $user_id = getLoginUserId();
 $user_name = getLoginUserName();
@@ -54,7 +56,7 @@ if ( isset($_SESSION['content']) ) {
 
 $htmltitle = "出来事編集";
 $description = "";
-include('../common/head.php');
+include '../common/head.php';
 
 // ロジックとビューの分離
 include 'views/edit_view.php';
