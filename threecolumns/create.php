@@ -11,8 +11,6 @@ if (!isLogin()) {
   header('Location: ../../login/');
 }
 
-$htmltitle = "3コラム新規作成";
-
 $user_id = getLoginUserId();
 $user_name = getLoginUserName();
 
@@ -52,6 +50,7 @@ $stmt->execute();
 //exit;
 $threecol_id = $database_handler->lastInsertId();
 
+$htmltitle = "3コラム新規作成";
 include('../common/head.php');
 
 // ロジックとビューの分離

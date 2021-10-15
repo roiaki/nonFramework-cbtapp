@@ -32,6 +32,17 @@ try {
     //$stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
 
+    $stmt = $database_handler
+                ->prepare(
+                    "DELETE
+                    FROM
+                      habit_threecolumn
+                    WHERE
+                      threecol_id = :threecol_id"
+                );
+    $stmt->bindParam(':threecol_id', $threecol_id);
+    $stmt->execute();
+
     // コミット
     $res = $database_handler->commit();
     //var_dump($res);
