@@ -3,7 +3,7 @@ session_start();
 $htmltitle = '説明';
 $description = '';
 
-include('../common/head.php');
+include '../common/head.php';
 
 ?>
 

@@ -16,7 +16,7 @@ $htmltitle = "3コラム新規作成";
 $user_id = getLoginUserId();
 $user_name = getLoginUserName();
 
-$event_id = $_GET['event_id'];
+$event_id = $_GET['threecol_id'];
 //var_dump($_GET);
 //exit;
 $database_handler = getDatabaseConnection();
@@ -35,7 +35,7 @@ $event_content = $event['content'];
 $stmt = $database_handler
     ->prepare(
       "INSERT INTO 
-        threecolumns 
+        sevencolumns 
         (user_id, event_id, title, content) 
       VALUES 
         (:user_id, :event_id, :title, :content)"
@@ -59,7 +59,7 @@ include('../common/head.php');
   <div class="container">
     <div class="row">
       <div class="col-5">
-        <h3>3コラム　新規作成</h3>
+        <h3>7コラム　新規作成</h3>
 
         <form method="post" action="action/store.php">
           <div class="form-group">

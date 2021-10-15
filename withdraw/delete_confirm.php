@@ -15,7 +15,7 @@ session_start();
 </head>
 
 <body>
-<?php include('../common/global_menu.php'); ?>
+<?php include '../common/global_menu.php'; ?>
 
   
 <div class="container">

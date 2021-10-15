@@ -1,5 +1,5 @@
 <body>
-  <?php include('../common/global_menu.php'); ?>
+  <?php include '../common/global_menu.php'; ?>
 
   <form action="action/register.php" method="post">
     <div class="d-flex flex-column align-items-center justify-content-center shadow-lg p-3 mb-5 bg-white rounded">

@@ -1,5 +1,5 @@
 <body>
-<?php include('../common/global_menu.php'); ?>
+<?php include '../common/global_menu.php'; ?>
 
   <div class="container">
     <h3>出来事 詳細ページ</h3>

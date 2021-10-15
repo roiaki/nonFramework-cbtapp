@@ -1,5 +1,5 @@
 <body>
-  <?php include('../common/global_menu.php'); ?>
+  <?php include '../common/global_menu.php'; ?>
   <?php if (isset($_SESSION['flash_message'])) {
         $message = $_SESSION['flash_message'];
       unset($_SESSION['flash_message']);

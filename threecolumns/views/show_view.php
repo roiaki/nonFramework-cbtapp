@@ -1,5 +1,5 @@
 <body>
-  <?php include('../common/global_menu.php'); ?>
+  <?php include '../common/global_menu.php'; ?>
   <div class="container">
     <h3>3コラム 詳細ページ</h3>
     <table class="table table-striped table-bordered">
@@ -34,7 +34,7 @@
         </tr>
       </tbody>
     </table>
-    <a href="edit.php?threecol_id=<?php echo $threecolumns['id']; ?>" class="btn btn-success btn-lg" role="button" aria-pressed="true">
+    <a href="../sevencolumns/create.php?threecol_id=<?php echo $threecolumns['id']; ?>" class="btn btn-success btn-lg" role="button" aria-pressed="true">
       これを元に7コラム作成する
     </a>
     <a href="edit.php?threecol_id=<?php echo $threecolumns['id']; ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">

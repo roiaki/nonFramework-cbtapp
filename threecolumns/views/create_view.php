@@ -1,6 +1,6 @@
 
 <body>
-  <?php include('../common/global_menu.php'); ?>
+  <?php include '../common/global_menu.php'; ?>
 
   <div class="container">
     <div class="row">
