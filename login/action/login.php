@@ -6,38 +6,63 @@ require '../../common/validation.php';
 $user_email = $_POST['user_email'];
 $user_password = $_POST['user_password'];
 
-// バリデーション
+$errorCount = 0;
+// バリデーションチェック
 if (emptyCheck($user_email) == "NG") {
-    $_SESSION['email']['empty']= "入力必須です";       
+    $_SESSION['email_error']['empty']= "入力必須です";
+    $errorCount += 1;   
 }
 
 if (emptyCheck($user_password) == "NG") {
-    $_SESSION['password']['empty'] = "入力必須です";
+    $_SESSION['password_error']['empty'] = "入力必須です";
+    $errorCount += 1; 
 }
 
 if (emailCheck($user_email) == "NG") {
-    $_SESSION['email']['form'] = "メール形式でお願いします";
+    $_SESSION['email_error']['form'] = "メール形式でお願いします";
+    $errorCount += 1; 
 }
-//var_dump($_SESSION['email']);
 
 if (minSize($user_password) == "NG") {
-    $_SESSION['password']['min'] = "4文字以上でお願いします。";
+    $_SESSION['password_error']['min'] = "4文字以上でお願いします。";
+    $errorCount += 1; 
 }
 
 if (maxSize($user_password) == "NG") {
-    $_SESSION['password']['min'] = "255文字未満でお願いします。";
+    $_SESSION['password_error']['min'] = "255文字未満でお願いします。";
+    $errorCount += 1; 
+}
+
+// バリデーションエラーがあったらリダイレクト
+if ( $errorCount > 0 ) {
+    $_SESSION['user_email'] = $_POST['user_email'];
+    $_SESSION['user_password'] = $_POST['user_password'];
+    header('Location: ../../login');
+    exit;
 }
 
 // ログイン処理
 $database_handler = getDatabaseConnection();
 
-$sql = $database_handler->prepare('SELECT id, name, email, password FROM users WHERE email = :user_email');
-$sql->bindParam(':user_email', $user_email);
-$sql->execute();
+$stmt = $database_handler
+    ->prepare(
+        "SELECT 
+          id, 
+          name, 
+          email, 
+          password 
+        FROM 
+          users 
+        WHERE 
+          email = :user_email"
+    );
 
-$user = $sql->fetch(PDO::FETCH_ASSOC);
+$stmt->bindParam(':user_email', $user_email);
+$stmt->execute();
+
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$user) {
-    $_SESSION['errors'] = ['メールアドレスが間違っています'];
+    $_SESSION['error_verify'] = ['メールアドレスが間違っています'];
     header('Location: ../../login/');
     exit;
 }
@@ -63,7 +88,7 @@ if ( password_verify($user_password, $user['password']) ) {
     exit;
 
 } else {
-    $_SESSION['errors'] = [
+    $_SESSION['error_verify'] = [
         'メールアドレスまたはパスワードが間違っています。'
     ];
     header('Location: ../../login/');

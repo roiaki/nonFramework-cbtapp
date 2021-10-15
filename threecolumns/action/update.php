@@ -5,8 +5,11 @@ require '../../common/auth.php';
 
   /*
   * 中間テーブル更新メソッド
+  * @param object(PDO) 
+  * 
   * @param int $habit_id 中間テーブルID 
-  * @param $sql string   sql文
+  * @param string $sql  sql文
+  * @param int $threecol_id 
   */ 
   function updateIntermediateTable($database_handler, $sql, $habit_id, $threecol_id, $created_at, $updated_at) {
     //$database_handler = getDatabaseConnection();

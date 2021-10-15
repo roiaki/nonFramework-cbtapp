@@ -8,6 +8,7 @@ function getDatabaseConnection()
             PDO::MYSQL_ATTR_MULTI_STATEMENTS => false,
         );
         $database_handler = new PDO('mysql:host=localhost;dbname=laravel_cbtapp;charset=utf8', 'root', '', $option);
+        
     } catch (PDOException $e) {
         echo "DB接続に失敗しました";
         echo $e->getMessage();

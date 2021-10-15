@@ -12,56 +12,21 @@ if ( isLogin() ) {
 $htmltitle = 'ログイン';
 $description ='';
 
+// バリデーションエラーリダイレクトだったら前回入力した値を表示する
+if ( isset($_SESSION['user_email']) ) {
+  $user_email = $_SESSION['user_email'];
+  unset( $_SESSION['user_email'] );
+}
+
+if ( isset($_SESSION['user_password']) ) {
+  $user_password = $_SESSION['user_password'];
+  unset( $_SESSION['user_password'] );
+}
+
 include('../common/head.php');
+
+// ロジックとビューの分離
+include 'views/index_view.php';
 
 ?>
 
-<body>
-<?php include('../common/global_menu.php'); ?>
-  <form action="action/login.php" method="post">
-    <div class="d-flex flex-column align-items-center justify-content-center shadow-lg p-3 mb-5 bg-white rounded">
-      <h3>ログイン</h3>
-      <?php if ( isset($_SESSION['errors']) ) {
-          echo '<div class="text-danger">';
-          foreach ($_SESSION['errors'] as $error) {
-            echo "<div>* $error </div>";
-          }
-          echo '</div>';
-          unset($_SESSION['errors']);
-        }
-      ?>
-      <div class="form-group">
-        <label for="email">メールアドレス</label>
-        <input type="email" name="user_email" id="email" class="form-control" placeholder="メールアドレス">
-        <?php if ( isset($_SESSION['email']) ) {
-          echo '<div class="text-danger">';
-          foreach ($_SESSION['email'] as $error) {
-            echo "<div>* $error </div>";
-          }
-          echo '</div>';
-          unset($_SESSION['email']);
-        }
-        ?>
-      </div>
-
-      <div class="form-group">
-        <label for="password">パスワード</label>
-        <input type="password" name="user_password" id="password" class="form-control" placeholder="パスワード" >
-        <?php if ( isset($_SESSION['password']) ) {
-          echo '<div class="text-danger">';
-          foreach ($_SESSION['password'] as $error) {
-            echo "<div>* $error </div>";
-          }
-          echo '</div>';
-          unset($_SESSION['password']);
-        }
-        ?>
-      </div>
-
-      <button type="submit" class="col-1 form-control btn btn-success">
-        ログイン
-      </button>
-    </div>
-  </form>
-</body>
-</html>

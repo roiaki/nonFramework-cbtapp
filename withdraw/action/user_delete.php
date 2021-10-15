@@ -5,7 +5,7 @@ require '../../common/database.php';
 $user_email = $_SESSION['user']['email'];
 var_dump($_SESSION['user']['email']);
 var_dump($_SESSION);
-
+//exit;
 // 退会処理
 $database_handler = getDatabaseConnection();
 

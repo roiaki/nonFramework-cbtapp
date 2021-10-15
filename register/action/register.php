@@ -66,14 +66,15 @@ try {
                email, 
                password,
                created_at,
-               updated_at) 
+               updated_at
+              ) 
             VALUES 
               (:name, 
                :email, 
                :password,
                :created_at,
                :updated_at
-               )"
+              )"
         );
 
 //var_dump($sgl);
