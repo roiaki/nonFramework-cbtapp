@@ -16,60 +16,97 @@ $htmltitle = "3コラム新規作成";
 $user_id = getLoginUserId();
 $user_name = getLoginUserName();
 
-$event_id = $_GET['threecol_id'];
-//var_dump($_GET);
-//exit;
+$threecol_id = $_GET['threecol_id'];
 $database_handler = getDatabaseConnection();
-$stmt = $database_handler->prepare("SELECT * FROM events WHERE user_id = :user_id AND id = :event_id");
 
-$stmt->bindParam(':event_id', $event_id);
-$stmt->bindParam(':user_id', $user_id);
-
+$stmt = $database_handler
+    ->prepare(
+        "SELECT
+          * 
+        FROM
+          threecolumns
+        WHERE
+          id = :threecol_id"
+    );
+$stmt->bindParam(':threecol_id', $threecol_id);  
 $stmt->execute();
 
-$event = $stmt->fetch(PDO::FETCH_ASSOC);
-$event_title = $event['title'];
-$event_content = $event['content'];
+$threecolumn = [];
+
+while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $threecolumn = $result;
+}
+
+$threecolumn_id = $threecolumn['id'];
+$event_id = $threecolumn['event_id'];
+$title = $threecolumn['title'];
+$content = $threecolumn['content'];
+$emotion_name = $threecolumn['emotion_name'];
+$emotion_strength = $threecolumn['emotion_strength'];
+$thinking = $threecolumn['thinking'];
+var_dump($event_id, $title, $content, $emotion_name, $emotion_strength, $thinking);
+//var_dump($threecolumn);
 
 // 作成ボタンを押した段階でテーブルに一旦データを仮格納する
-$stmt = $database_handler
+$stmt2 = $database_handler
     ->prepare(
       "INSERT INTO 
         sevencolumns 
-        (user_id, event_id, title, content) 
-      VALUES 
-        (:user_id, :event_id, :title, :content)"
+        (user_id, 
+         event_id,
+         threecol_id,
+         title,
+         content,
+         emotion_name,
+         emotion_strength,
+         thinking
+         ) 
+       VALUES 
+        (:user_id, 
+         :event_id,
+         :threecolumn_id,
+         :title,
+         :content,
+         :emotion_name,
+         :emotion_strength,
+         :thinking)"
     );
 
-$stmt->bindParam(':user_id', $user_id);
-$stmt->bindParam(':event_id', $event_id);
-$stmt->bindParam(':title', $event_title);
-$stmt->bindParam(':content', $event_content);
+$stmt2->bindParam(':user_id', $user_id);
+$stmt2->bindParam(':event_id', $event_id);
+$stmt2->bindParam(':threecolumn_id', $threecolumn_id);
+$stmt2->bindParam(':title', $title);
+$stmt2->bindParam(':content', $content);
+$stmt2->bindParam(':emotion_name', $emotion_name);
+$stmt2->bindParam(':emotion_strength', $emotion_strength);
+$stmt2->bindParam(':thinking', $thinking);
+//var_dump($stmt2);
 
-$stmt->execute();
+$stmt2->execute();
 
-$threecol_id = $database_handler->lastInsertId();
+$sevencolumn_id = $database_handler->lastInsertId();
 
 include '../common/head.php';
 ?>
 
 <body>
-  <?php include('../common/global_menu.php'); ?>
+  <?php include '../common/global_menu.php'; ?>
 
   <div class="container">
     <div class="row">
       <div class="col-5">
         <h3>7コラム　新規作成</h3>
 
-        <form method="post" action="action/store.php">
+        <form method="post" action="controller/store.php">
           <div class="form-group">
+            <input type="hidden" name="sevencolumn_id" value="<?php echo $sevencolumn_id; ?>">
+            <input type="hidden" name="threecolumn_id" value="<?php echo $threecol_id; ?>">
+            <input type="hidden" name="event_id" value="<?php echo $event_id; ?>">
 
-            <input type="hidden" name="threecol_id" value="<?php echo $threecol_id; ?>">
-            
           <label>出来事タイトル</label>
-            <input type="hidden" name="event_id" value="<?php echo $event['id']; ?>" >
+            
             <input type="text" class="form-control" id="title" name="title" 
-                   value="<?php echo $event['title']; ?> " readonly>
+                   value="<?php echo $title; ?> " readonly>
 
             <?php if (isset($_SESSION['error_title'])) {
                 echo '<div class="text-danger">';
@@ -85,7 +122,7 @@ include '../common/head.php';
           <div class="form-group">
             <!-- 内容 -->
             <label for="content">①出来事 の 内容</label>
-            <textarea class="form-control" id="content" name="content" cols="90" rows="7" readonly><?php echo $event['content']; ?></textarea>
+            <textarea class="form-control" id="content" name="content" cols="90" rows="3" readonly><?php echo $content; ?></textarea>
 
             <?php if (isset($_SESSION['error_content'])) {
                 echo '<div class="text-danger">';
@@ -101,7 +138,13 @@ include '../common/head.php';
 
           <div class="form-group">
             <label for="emotion_name">②-1  感情名</label>
-            <input type="text" class="form-control" id="emotion_name" name="emotion_name">
+            <input readonly type="text" class="form-control" id="emotion_name" name="emotion_name"
+                   value="<?php
+                            if ( isset($emotion_name) ) {
+                              echo $emotion_name;
+                            }
+                          ?>"
+                   >
 
             <!-- 感情名必須バリデーション表示-->
 
@@ -109,7 +152,13 @@ include '../common/head.php';
 
           <div class="form-group">
             <label for="emotion_strength">②-2  強さ</label>
-            <input type="number" class="form-control" id="emotion_strength" name="emotion_strength">
+            <input readonly type="number" class="form-control" id="emotion_strength" name="emotion_strength"
+                   value="<?php
+                            if (isset($emotion_strength) ) {
+                              echo $emotion_strength;
+                            }
+                          ?>"
+                   >
 
             <!-- 感情名必須バリデーション表示-->
 
@@ -117,63 +166,57 @@ include '../common/head.php';
 
           <div class="form-group">
             <label for="thinking">③その時考えたこと（自動思考）</label><br>
-            <textarea class="form-control" id="thinking" name="thinking" cols="90" rows="7"></textarea>
+            <textarea class="form-control" 
+                      id="thinking" 
+                      name="thinking" 
+                      cols="90" 
+                      rows="3"
+                      readonly><?php if (isset($thinking) ) {
+                                 echo $thinking;
+                                }
+                               ?></textarea>
 
             <!-- 感情名必須バリデーション表示-->
-
           </div>
 
-          <lavel>・その考えに当てはまる考え方の癖</lavel>
-          <div class="form-group">					
-            
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="habit[0]" id="1">
-              <label class="form-check-label" for="1">
-                一般化のし過ぎ
-              </label>
-            </div>
-
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="habit[1]" id="2">
-              <label class="form-check-label" for="2">
-                自分への関連付け
-              </label>
-            </div>
-
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="habit[2]" id="3">
-              <label class="form-check-label" for="3">
-                根拠のない推論
-              </label>
-            </div>
-
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="habit[3]" id="4">
-              <label class="form-check-label" for="4">
-                白か黒か思考
-              </label>
-            </div>
-
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="habit[4]" id="5">
-              <label class="form-check-label" for="5">
-                すべき思考
-              </label>
-            </div>
-
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="habit[5]" id="6">
-              <label class="form-check-label" for="6">
-                過大評価と過少評価
-              </label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" name="habit[6]" id="7">
-              <label class="form-check-label" for="7">
-                感情による決めつけ
-              </label>
-            </div>
+          <div class="form-group">
+            <label for="basis_thinking">④その考えの根拠</label>
+            <textarea class="form-control"
+                      id="basis_thinking"
+                      name="basis_thinking"
+                      cols="50"
+                      rows="3"></textarea>
           </div>
+
+          <div class="form-group">
+            <label for="opposite_fact">⑤逆の事実</label>
+            <textarea class="form-control"
+                      id="opposite_fact"
+                      name="opposite_fact"
+                      cols="50"
+                      rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="new_thinking">⑥新しい考え</label>
+            <textarea class="form-control"
+                      id="new_thinking"
+                      name="new_thinking"
+                      cols="50"
+                      rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="new_emotion">⑦新しい感情</label>
+            <textarea class="form-control"
+                      id="new_emotion"
+                      name="new_emotion"
+                      cols="50"
+                      rows="2"></textarea>
+          </div>
+
+          
+          
           <button class="btn btn-primary" type="submit">作成</button>
         </form>
       </div>

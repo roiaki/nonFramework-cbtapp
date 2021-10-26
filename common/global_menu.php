@@ -33,6 +33,7 @@
             <li class="nav-item"><a class="nav-link" href="../user/info.php">説明</a></li>
             <li class="nav-item"><a class="nav-link" href="../events">出来事一覧</a></li>
             <li class="nav-item"><a class="nav-link" href="../threecolumns">3コラム一覧</a></li>
+            <li class="nav-item"><a class="nav-link" href="../sevencolumns">7コラム一覧</a></li>
 
             <div class="dropdown mr-5">
               <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

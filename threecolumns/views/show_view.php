@@ -10,6 +10,7 @@
           <th>タイトル</th>
           <th>内容</th>
           <th>感情</th>
+          <th>感情の強さ</th>
           <th>考えたこと</th>
           <th>考え方の癖</th>
           <th>更新日</th>
@@ -18,29 +19,30 @@
 
       <tbody>
         <tr>
-          <td><?php echo $threecolumns['id']; ?></td>
-          <td><?php echo $threecolumns['event_id']; ?></td>
-          <td><?php echo $threecolumns['title']; ?></td>
-          <td><?php echo $threecolumns['content']; ?></td>
-          <td><?php echo $threecolumns['emotion_name']; ?></td>
-          <td><?php echo $threecolumns['thinking']; ?></td>
+          <td><?php echo $threecolumn['id']; ?></td>
+          <td><?php echo $threecolumn['event_id']; ?></td>
+          <td><?php echo $threecolumn['title']; ?></td>
+          <td><?php echo $threecolumn['content']; ?></td>
+          <td><?php echo $threecolumn['emotion_name']; ?></td>
+          <td><?php echo $threecolumn['emotion_strength']; ?></td>
+          <td><?php echo $threecolumn['thinking']; ?></td>
           <td><?php
               foreach ($names as $name) {
                 echo $name['habit_name'] . "<br>";
               }
               ?>
           </td>
-          <td><?php echo $threecolumns['updated_at']; ?></td>
+          <td><?php echo $threecolumn['updated_at']; ?></td>
         </tr>
       </tbody>
     </table>
-    <a href="../sevencolumns/create.php?threecol_id=<?php echo $threecolumns['id']; ?>" class="btn btn-success btn-lg" role="button" aria-pressed="true">
+    <a href="../sevencolumns/create.php?threecol_id=<?php echo $threecolumn['id']; ?>" class="btn btn-success btn-lg" role="button" aria-pressed="true">
       これを元に7コラム作成する
     </a>
-    <a href="edit.php?threecol_id=<?php echo $threecolumns['id']; ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">
+    <a href="edit.php?threecol_id=<?php echo $threecolumn['id']; ?>" class="btn btn-primary btn-lg" role="button" aria-pressed="true">
       編集
     </a>
-    <a href="delete.php?threecol_id=<?php echo $threecolumns['id']; ?>" class="btn btn-danger btn-lg" role="button" onclick="confirmDelete();return false;" aria-pressed="true">
+    <a href="delete.php?threecol_id=<?php echo $threecolumn['id']; ?>" class="btn btn-danger btn-lg" role="button" onclick="confirmDelete();return false;" aria-pressed="true">
       削除
     </a>
   </div>

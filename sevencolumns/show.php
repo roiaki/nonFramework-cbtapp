@@ -14,7 +14,8 @@ $user_id = getLoginUserId();
 $user_name = getLoginUserName();
 
 //var_dump('GET', $_GET);
-$threecol_id = $_GET['threecol_id'];
+$sevencolumn_id = $_GET['sevencolumn_id'];
+
 //var_dump($threecol_id);
 /*
 var_dump(
@@ -26,30 +27,31 @@ var_dump(
 */
 
 
+
 try {
   $database_handler = getDatabaseConnection();
   $stmt = $database_handler
     ->prepare(
       "SELECT * FROM 
-        threecolumns
+        sevencolumns
       WHERE 
         user_id = :user_id 
       AND 
-        id = :threecol_id 
+        id = :sevencolumn_id 
       ORDER BY updated_at DESC"
     );
 
   $stmt->bindParam(':user_id', $user_id);
-  $stmt->bindParam(':threecol_id', $threecol_id);
+  $stmt->bindParam(':sevencolumn_id', $sevencolumn_id);
 
   $stmt->execute();
 
-  $threecolumn = [];
+  $sevencolumn = [];
 
   while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $threecolumn = $result;
+    $sevencolumn = $result;
   }
-var_dump($threecolumn);
+var_dump($sevencolumn);
   $stmt = $database_handler
       ->prepare(
           "SELECT 
@@ -62,10 +64,10 @@ var_dump($threecolumn);
           ON 
             habits.id = habit_threecolumn.habit_id 
           WHERE 
-            habit_threecolumn.threecol_id = :threecol_id"
+            habit_threecolumn.threecol_id = :threecolumn_id"
       );
 
-  $stmt->bindParam(':threecol_id', $threecolumn['id']);
+  $stmt->bindParam(':threecolumn_id', $sevencolumn['threecol_id']);
 
   $stmt->execute();
 
@@ -74,6 +76,8 @@ var_dump($threecolumn);
   while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
       array_push($names, $result);
   }
+//var_dump($names);
+
 } catch (Exception $e) {
     // エラーが起きたらロールバック
     //$database_handler->rollBack();
