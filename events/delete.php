@@ -37,10 +37,12 @@ try {
     //var_dump($res);
     //exit;
 } catch(Exception $e) {
-    echo $e->getMessage();
-    exit;
     // エラーが起きたらロールバック
     $database_handler->rollBack();
+    
+    echo $e->getMessage();
+    exit;
+    
 }
 
 if ( $res ) {

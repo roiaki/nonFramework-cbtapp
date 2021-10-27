@@ -76,7 +76,7 @@ var_dump($threecolumn);
   }
 } catch (Exception $e) {
     // エラーが起きたらロールバック
-    //$database_handler->rollBack();
+    $database_handler->rollBack();
 
     echo $e->getMessage();
     exit;
